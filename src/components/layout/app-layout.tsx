@@ -15,6 +15,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { ModeToggle } from "@/components/theme/mood-toggle";
+import { Toaster } from "@/components/ui/sonner";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -45,7 +46,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
           <ModeToggle />
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
+        <div className="flex flex-1 flex-col gap-4 p-4">
+          <Toaster />
+          {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

@@ -10,10 +10,17 @@ export interface Editions {
   direction: string;
 }
 
+export interface MetaDataResponse {
+  code: number;
+  status: string;
+  message: string;
+  data: Record<string, unknown>;
+}
+
 export const metaDataApi = quranBaseApi.injectEndpoints({
   endpoints: (builder) => ({
     // get metadata
-    getMetaData: builder.query<unknown, void>({
+    getMetaData: builder.query<MetaDataResponse, void>({
       query: () => {
         return {
           url: `/meta`,
