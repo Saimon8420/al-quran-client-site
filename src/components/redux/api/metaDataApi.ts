@@ -27,6 +27,16 @@ export const metaDataApi = quranBaseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["meta"],
+      async onQueryStarted(arg, { dispatch, getState, extra, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data?.data);
+          console.log(Object.keys(data.data));
+        } catch (error) {
+          console.error(error);
+        }
+      },
     }),
 
     // get editions data
@@ -37,6 +47,7 @@ export const metaDataApi = quranBaseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["editions"],
     }),
   }),
 });

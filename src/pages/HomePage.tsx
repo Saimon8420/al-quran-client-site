@@ -1,10 +1,11 @@
 import { useGetMetaDataQuery } from "@/components/redux/api/metaDataApi";
 import Loader from "@/components/ui/loader/loader";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import useToast from "@/hooks/use-toast";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 const HomePage = () => {
+  // to get metaData
   const {
     data: metaData,
     isLoading,
@@ -14,10 +15,12 @@ const HomePage = () => {
     isSuccess,
   } = useGetMetaDataQuery();
 
+  // hooks
+  useToast({ isError, error, isSuccess, data: metaData });
+
   console.log(metaData);
 
   const [tabList, setTabList] = useState<string[]>([]);
-  const [successToastShown, setSuccessToastShown] = useState(false);
 
   // Update tabList only when metaData changes
   useEffect(() => {
@@ -25,26 +28,6 @@ const HomePage = () => {
       setTabList(Object.keys(metaData?.data));
     }
   }, [metaData, isLoading, isFetching, isError]);
-
-  useEffect(() => {
-    if (isError && error) {
-      if ("data" in error) {
-        toast.error("Error", {
-          description: (error.data as { message: string }).message,
-          closeButton: true,
-          duration: 3000,
-        });
-      }
-    }
-    if (isSuccess && metaData && !successToastShown) {
-      toast.success("Success", {
-        description: `Status : ${metaData?.status}, Code : ${metaData?.code}`,
-        closeButton: true,
-        duration: 3000,
-      });
-      setSuccessToastShown(true);
-    }
-  }, [isError, error, isSuccess, metaData, successToastShown]);
 
   if (isLoading || isFetching) {
     return <Loader />;
@@ -54,9 +37,13 @@ const HomePage = () => {
     <div className="flex flex-col items-center justify-center gap-4">
       This is homepage
       <Tabs defaultValue={"surahs"}>
-        <TabsList className="min-w-7xl mx-auto">
+        <TabsList className="2xl:min-w-7xl xl:min-w-4xl lg:min-w-2xl md:min-w-md min-w-3xs p-2 md:gap-0 gap-2">
           {tabList?.map((tab) => (
-            <TabsTrigger key={tab} value={tab} className="capitalize">
+            <TabsTrigger
+              key={tab}
+              value={tab}
+              className="capitalize cursor-pointer px-2 md:px-10"
+            >
               {tab}
             </TabsTrigger>
           ))}
