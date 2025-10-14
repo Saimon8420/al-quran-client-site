@@ -26,7 +26,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4 justify-between">
+        <header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4 justify-between z-50">
           <div className="flex items-center h-[100%]">
             <SidebarTrigger className="-ml-1 mr-2" />
             <Separator orientation="vertical" className="mr-4 h-4" />

@@ -1,3 +1,4 @@
+import { setMetaData, setTabList } from "../slices/metaSlice";
 import { quranBaseApi } from "./baseApi";
 
 export interface Editions {
@@ -28,11 +29,17 @@ export const metaDataApi = quranBaseApi.injectEndpoints({
         };
       },
       providesTags: ["meta"],
-      async onQueryStarted(arg, { dispatch, getState, extra, queryFulfilled }) {
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data?.data);
-          console.log(Object.keys(data.data));
+          if (data?.data) {
+            dispatch(
+              setTabList(
+                Object.keys(data.data).filter((key) => key !== "ayahs")
+              )
+            );
+            dispatch(setMetaData(data.data));
+          }
         } catch (error) {
           console.error(error);
         }
