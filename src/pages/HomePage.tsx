@@ -1,6 +1,7 @@
 import type { RootState } from "@/app/store";
 import OverView from "@/components/features/over-view";
 import { useGetMetaDataQuery } from "@/components/redux/api/metaDataApi";
+import Bismillah from "@/components/ui/bismillah/bismillah";
 import Loader from "@/components/ui/loader/loader";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useToast from "@/hooks/use-toast";
@@ -33,6 +34,7 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
+      <Bismillah />
       Assalamu Alaikum !
       <Tabs value={currentTab} onValueChange={setCurrentTab}>
         <TabsList className="2xl:min-w-7xl xl:min-w-4xl lg:min-w-2xl md:min-w-md min-w-3xs p-2 md:gap-0 gap-2">
