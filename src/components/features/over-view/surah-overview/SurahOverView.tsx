@@ -10,6 +10,8 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { useSelector } from "react-redux";
+import mecca from "@/assets/images/mecca.png";
+import madinah from "@/assets/images/madinah.png";
 
 const SurahOverView = () => {
   const surahs = useSelector((state: RootState) => state.meta.surahs);
@@ -30,6 +32,12 @@ const SurahOverView = () => {
               >
                 <span className="text-md font-bold">{surah.number}</span>
               </ItemMedia>
+
+              <img
+                src={surah.revelationType === "Meccan" ? mecca : madinah}
+                alt={surah.revelationType === "Meccan" ? "mecca" : "madinah"}
+                className="w-12 h-12 dark:invert"
+              />
 
               <ItemContent>
                 <ItemTitle className="text-lg font-semibold">

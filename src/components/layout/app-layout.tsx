@@ -27,6 +27,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
+        <DotPattern width={40} height={40} cx={1} cy={1} cr={1} opacity={0.4} />
         <header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4 justify-between z-50">
           <div className="flex items-center h-[100%]">
             <SidebarTrigger className="-ml-1 mr-2" />
@@ -47,15 +48,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
           <ModeToggle />
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 relative size-full">
-          <DotPattern
-            width={40}
-            height={40}
-            cx={1}
-            cy={1}
-            cr={1}
-            opacity={0.4}
-          />
+        <div className="flex flex-col gap-4 p-4 relative size-full">
           <Toaster />
           {children}
         </div>
