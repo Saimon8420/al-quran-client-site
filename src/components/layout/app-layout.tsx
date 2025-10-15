@@ -17,7 +17,6 @@ import {
 import { ModeToggle } from "@/components/theme/mood-toggle";
 import { Toaster } from "@/components/ui/sonner";
 import { DotPattern } from "../ui/dot-pattern";
-import { cn } from "@/lib/utils";
 
 interface AppLayoutProps {
   children: React.ReactNode;
