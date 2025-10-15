@@ -29,7 +29,7 @@ export const metaDataApi = quranBaseApi.injectEndpoints({
         };
       },
       providesTags: ["meta"],
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data?.data) {
