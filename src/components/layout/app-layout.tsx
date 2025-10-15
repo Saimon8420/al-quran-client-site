@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/breadcrumb";
 import { ModeToggle } from "@/components/theme/mood-toggle";
 import { Toaster } from "@/components/ui/sonner";
+import { DotPattern } from "../ui/dot-pattern";
+import { cn } from "@/lib/utils";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -46,7 +48,15 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
           <ModeToggle />
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex flex-1 flex-col gap-4 p-4 relative size-full">
+          <DotPattern
+            width={40}
+            height={40}
+            cx={1}
+            cy={1}
+            cr={1}
+            opacity={0.4}
+          />
           <Toaster />
           {children}
         </div>
