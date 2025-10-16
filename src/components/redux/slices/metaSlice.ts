@@ -9,7 +9,7 @@ interface SectionReference {
 }
 interface EachSection {
   count: number;
-  reference: SectionReference[];
+  references: SectionReference[];
 }
 interface MetaState {
   tabList: string[];
@@ -37,12 +37,12 @@ interface MetaState {
 
 const initialState: MetaState = {
   tabList: [],
-  hizbQuarters: { count: 0, reference: [] },
-  juzs: { count: 0, reference: [] },
-  manzils: { count: 0, reference: [] },
-  rukus: { count: 0, reference: [] },
-  pages: { count: 0, reference: [] },
-  sajdas: { count: 0, reference: [] },
+  hizbQuarters: { count: 0, references: [] },
+  juzs: { count: 0, references: [] },
+  manzils: { count: 0, references: [] },
+  rukus: { count: 0, references: [] },
+  pages: { count: 0, references: [] },
+  sajdas: { count: 0, references: [] },
   surahs: { count: 0, references: [] },
   ayahs: { count: 0 },
 };
