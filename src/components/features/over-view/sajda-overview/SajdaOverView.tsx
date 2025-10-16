@@ -1,6 +1,6 @@
 import type { RootState } from "@/app/store";
 import { useSelector } from "react-redux";
-import { OverViewList } from "@/components/features/over-view/layout/OverViewList";
+import { OverViewList } from "@/components/features/over-view/common/OverViewList";
 import { Badge } from "@/components/ui/badge";
 import {
   Item,
@@ -10,26 +10,28 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import mecca from "@/assets/images/mecca.png";
-import madinah from "@/assets/images/madinah.png";
+import type { SectionReference } from "@/components/redux/slices/metaSlice";
+import RenderRevelationImage from "../common/RenderRevelationImage";
 
 const SajdaOverView = () => {
   const { sajdas, surahs } = useSelector((state: RootState) => state.meta);
 
-  const filterFn = (sajda: any, searchTerm: string) => {
+  const filterFn = (sajda: SectionReference, searchTerm: string) => {
     const surah = surahs.references.find((s) => s.number === sajda.surah);
     if (!surah) return false;
 
     const sajdaNumber = (sajdas.references.indexOf(sajda) + 1).toString();
     const lowercasedSearchTerm = searchTerm.toLowerCase();
 
-    const nameMatch = surah.englishName.toLowerCase().includes(lowercasedSearchTerm);
+    const nameMatch = surah.englishName
+      .toLowerCase()
+      .includes(lowercasedSearchTerm);
     const numberMatch = sajdaNumber.includes(lowercasedSearchTerm);
 
     return nameMatch || numberMatch;
   };
 
-  const renderItem = (sajda: any, index: number) => {
+  const renderItem = (sajda: SectionReference, index: number) => {
     const surah = surahs.references.find((s) => s.number === sajda.surah);
     if (!surah) return null;
 
@@ -47,13 +49,7 @@ const SajdaOverView = () => {
             <span className="text-md font-bold">{index + 1}</span>
           </ItemMedia>
 
-          <img
-            src={surah.revelationType === "Meccan" ? mecca : madinah}
-            alt={
-              surah.revelationType === "Meccan" ? "mecca" : "madinah"
-            }
-            className="w-12 h-12 dark:invert"
-          />
+          <RenderRevelationImage revelationType={surah.revelationType} />
 
           <ItemContent>
             <ItemTitle className="text-lg font-semibold">
@@ -67,9 +63,7 @@ const SajdaOverView = () => {
 
         <ItemActions className="flex flex-col sm:order-2 order-1 sm:w-fit w-full  sm:items-start items-end">
           <div className="text-base w-full flex flex-wrap">
-            <span className="font-arabic text-xl ml-auto">
-              {surah.name}
-            </span>
+            <span className="font-arabic text-xl ml-auto">{surah.name}</span>
           </div>
           <div className="flex flex-wrap items-end justify-end gap-2 mt-1 w-full">
             <Badge

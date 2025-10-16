@@ -1,6 +1,6 @@
 import type { RootState } from "@/app/store";
 import { useSelector } from "react-redux";
-import { OverViewList } from "@/components/features/over-view/layout/OverViewList";
+import { OverViewList } from "@/components/features/over-view/common/OverViewList";
 import {
   Item,
   ItemActions,
@@ -9,26 +9,30 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import mecca from "@/assets/images/mecca.png";
-import madinah from "@/assets/images/madinah.png";
+import type { SectionReference } from "@/components/redux/slices/metaSlice";
+import RenderRevelationImage from "../common/RenderRevelationImage";
 
 const HizbOverView = () => {
-  const { hizbQuarters, surahs } = useSelector((state: RootState) => state.meta);
+  const { hizbQuarters, surahs } = useSelector(
+    (state: RootState) => state.meta
+  );
 
-  const filterFn = (hizb: any, searchTerm: string) => {
+  const filterFn = (hizb: SectionReference, searchTerm: string) => {
     const surah = surahs.references.find((s) => s.number === hizb.surah);
     if (!surah) return false;
 
     const hizbNumber = (hizbQuarters.references.indexOf(hizb) + 1).toString();
     const lowercasedSearchTerm = searchTerm.toLowerCase();
 
-    const nameMatch = surah.englishName.toLowerCase().includes(lowercasedSearchTerm);
+    const nameMatch = surah.englishName
+      .toLowerCase()
+      .includes(lowercasedSearchTerm);
     const numberMatch = hizbNumber.includes(lowercasedSearchTerm);
 
     return nameMatch || numberMatch;
   };
 
-  const renderItem = (hizb: any, index: number) => {
+  const renderItem = (hizb: SectionReference, index: number) => {
     const surah = surahs.references.find((s) => s.number === hizb.surah);
     if (!surah) return null;
 
@@ -46,13 +50,7 @@ const HizbOverView = () => {
             <span className="text-md font-bold">{index + 1}</span>
           </ItemMedia>
 
-          <img
-            src={surah.revelationType === "Meccan" ? mecca : madinah}
-            alt={
-              surah.revelationType === "Meccan" ? "mecca" : "madinah"
-            }
-            className="w-12 h-12 dark:invert"
-          />
+          <RenderRevelationImage revelationType={surah.revelationType} />
 
           <ItemContent>
             <ItemTitle className="text-lg font-semibold">
@@ -66,9 +64,7 @@ const HizbOverView = () => {
 
         <ItemActions className="flex flex-col sm:order-2 order-1 sm:w-fit w-full  sm:items-start items-end">
           <div className="text-base w-full flex flex-wrap">
-            <span className="font-arabic text-xl ml-auto">
-              {surah.name}
-            </span>
+            <span className="font-arabic text-xl ml-auto">{surah.name}</span>
           </div>
         </ItemActions>
       </Item>

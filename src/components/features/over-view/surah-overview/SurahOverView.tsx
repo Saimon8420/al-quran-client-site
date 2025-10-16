@@ -1,6 +1,6 @@
 import type { RootState } from "@/app/store";
 import { useSelector } from "react-redux";
-import { OverViewList } from "@/components/features/over-view/layout/OverViewList";
+import { OverViewList } from "@/components/features/over-view/common/OverViewList";
 import { Badge } from "@/components/ui/badge";
 import {
   Item,
@@ -10,23 +10,25 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import mecca from "@/assets/images/mecca.png";
-import madinah from "@/assets/images/madinah.png";
+import type { Surah } from "@/components/redux/slices/metaSlice";
+import RenderRevelationImage from "../common/RenderRevelationImage";
 
 const SurahOverView = () => {
   const { surahs } = useSelector((state: RootState) => state.meta);
 
-  const filterFn = (surah: any, searchTerm: string) => {
+  const filterFn = (surah: Surah, searchTerm: string) => {
     const surahNumber = surah.number.toString();
     const lowercasedSearchTerm = searchTerm.toLowerCase();
 
-    const nameMatch = surah.englishName.toLowerCase().includes(lowercasedSearchTerm);
+    const nameMatch = surah.englishName
+      .toLowerCase()
+      .includes(lowercasedSearchTerm);
     const numberMatch = surahNumber.includes(lowercasedSearchTerm);
 
     return nameMatch || numberMatch;
   };
 
-  const renderItem = (surah: any) => {
+  const renderItem = (surah: Surah) => {
     return (
       <Item
         key={surah.number}
@@ -41,11 +43,7 @@ const SurahOverView = () => {
             <span className="text-md font-bold">{surah.number}</span>
           </ItemMedia>
 
-          <img
-            src={surah.revelationType === "Meccan" ? mecca : madinah}
-            alt={surah.revelationType === "Meccan" ? "mecca" : "madinah"}
-            className="w-12 h-12 dark:invert"
-          />
+          <RenderRevelationImage revelationType={surah.revelationType} />
 
           <ItemContent>
             <ItemTitle className="text-lg font-semibold">
@@ -59,9 +57,7 @@ const SurahOverView = () => {
 
         <ItemActions className="flex flex-col sm:order-2 order-1 sm:w-fit w-full  sm:items-start items-end">
           <div className="text-base w-full flex flex-wrap">
-            <span className="font-arabic text-xl ml-auto">
-              {surah.name}
-            </span>
+            <span className="font-arabic text-xl ml-auto">{surah.name}</span>
           </div>
           <div className="flex flex-wrap gap-2 mt-1">
             <Badge variant="default" className="text-xs font-bold">

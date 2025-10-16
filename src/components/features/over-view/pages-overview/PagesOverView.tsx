@@ -1,6 +1,6 @@
 import type { RootState } from "@/app/store";
 import { useSelector } from "react-redux";
-import { OverViewList } from "@/components/features/over-view/layout/OverViewList";
+import { OverViewList } from "@/components/features/over-view/common/OverViewList";
 import {
   Item,
   ItemActions,
@@ -9,26 +9,28 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import mecca from "@/assets/images/mecca.png";
-import madinah from "@/assets/images/madinah.png";
+import type { SectionReference } from "@/components/redux/slices/metaSlice";
+import RenderRevelationImage from "../common/RenderRevelationImage";
 
 const PagesOverView = () => {
   const { pages, surahs } = useSelector((state: RootState) => state.meta);
 
-  const filterFn = (page: any, searchTerm: string) => {
+  const filterFn = (page: SectionReference, searchTerm: string) => {
     const surah = surahs.references.find((s) => s.number === page.surah);
     if (!surah) return false;
 
     const pageNumber = (pages.references.indexOf(page) + 1).toString();
     const lowercasedSearchTerm = searchTerm.toLowerCase();
 
-    const nameMatch = surah.englishName.toLowerCase().includes(lowercasedSearchTerm);
+    const nameMatch = surah.englishName
+      .toLowerCase()
+      .includes(lowercasedSearchTerm);
     const numberMatch = pageNumber.includes(lowercasedSearchTerm);
 
     return nameMatch || numberMatch;
   };
 
-  const renderItem = (page: any, index: number) => {
+  const renderItem = (page: SectionReference, index: number) => {
     const surah = surahs.references.find((s) => s.number === page.surah);
     if (!surah) return null;
 
@@ -46,13 +48,7 @@ const PagesOverView = () => {
             <span className="text-md font-bold">{index + 1}</span>
           </ItemMedia>
 
-          <img
-            src={surah.revelationType === "Meccan" ? mecca : madinah}
-            alt={
-              surah.revelationType === "Meccan" ? "mecca" : "madinah"
-            }
-            className="w-12 h-12 dark:invert"
-          />
+          <RenderRevelationImage revelationType={surah.revelationType} />
 
           <ItemContent>
             <ItemTitle className="text-lg font-semibold">
@@ -66,9 +62,7 @@ const PagesOverView = () => {
 
         <ItemActions className="flex flex-col sm:order-2 order-1 sm:w-fit w-full  sm:items-start items-end">
           <div className="text-base w-full flex flex-wrap">
-            <span className="font-arabic text-xl ml-auto">
-              {surah.name}
-            </span>
+            <span className="font-arabic text-xl ml-auto">{surah.name}</span>
           </div>
         </ItemActions>
       </Item>

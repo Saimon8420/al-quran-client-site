@@ -1,6 +1,15 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface SectionReference {
+export interface Surah {
+  number: number;
+  name: string;
+  englishName: string;
+  englishNameTranslation: string;
+  numberOfAyahs: number;
+  revelationType: string;
+}
+
+export interface SectionReference {
   surah: number;
   ayah: number;
   // for sajdas
@@ -21,14 +30,7 @@ interface MetaState {
   sajdas: EachSection;
   surahs: {
     count: number;
-    references: Array<{
-      number: number;
-      name: string;
-      englishName: string;
-      englishNameTranslation: string;
-      numberOfAyahs: number;
-      revelationType: string;
-    }>;
+    references: Surah[];
   };
   ayahs: {
     count: number;
