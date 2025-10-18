@@ -40,8 +40,12 @@ export const metaDataApi = quranBaseApi.injectEndpoints({
             );
             dispatch(setMetaData(data.data));
           }
-        } catch (error) {
-          console.error(error);
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            console.error(err.message);
+          } else {
+            console.error(String(err));
+          }
         }
       },
     }),

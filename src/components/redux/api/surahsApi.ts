@@ -6,15 +6,6 @@ interface FullSurahs {
   edition?: string;
 }
 
-interface SurahSummary {
-  number: number;
-  name: string;
-  englishName: string;
-  englishNameTranslation: string;
-  numberOfAyahs: number;
-  revelationType: string;
-}
-
 // Shared Ayah/Verse structure
 interface Ayah {
   number: number;
@@ -26,10 +17,25 @@ interface Ayah {
   ruku: number;
   hizbQuarter: number;
   sajda: boolean;
+  audio?: string;
 }
 
-interface SurahDetail extends SurahSummary {
+// Surah-Summary
+interface SurahSummary {
+  number: number;
+  name: string;
+  englishName: string;
+  englishNameTranslation: string;
+  numberOfAyahs: number;
+  revelationType: string;
   ayahs: Ayah[];
+}
+
+// SurahDetail Interface
+interface SurahDetail {
+  code: number;
+  status: string;
+  data: SurahSummary[];
 }
 
 interface VerseData {
@@ -55,13 +61,35 @@ export const surahsApi = quranBaseApi.injectEndpoints({
       },
     }),
 
-    // get full surahs
+    // get full surahs with single editions
     getFullSurahs: builder.query<SurahDetail, FullSurahs>({
       query: (data: FullSurahs) => {
         return {
-          url: `/surah/${data.number}?edition=${data?.edition || "en.sahih"}`,
+          url: `/surah/${data.number}/editions/${
+            data?.edition || "quran-uthmani,en.asad,en.pickthall,en.walk"
+          }`,
           method: "GET",
         };
+      },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+
+          const modifyData = data?.data?.map((each) => {
+            return each.ayahs.map((eachAyah, i) =>
+              eachAyah.audio ? eachAyah.audio : eachAyah.text
+            );
+          });
+
+          // console.log(modifyData);
+          // console.log(data?.data);
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            console.error(err.message);
+          } else {
+            console.error(String(err));
+          }
+        }
       },
     }),
 
