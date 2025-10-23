@@ -1,280 +1,149 @@
-const CompleteSurahView = () => {
-  const response = [
-    {
-      number: 103,
-      name: "سُورَةُ العَصۡرِ",
-      englishName: "Al-Asr",
-      englishNameTranslation: "The Declining Day, Epoch",
-      revelationType: "Meccan",
-      numberOfAyahs: 3,
-      ayahs: [
-        {
-          number: 6177,
-          text: "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلْعَصْرِ",
-          numberInSurah: 1,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-        {
-          number: 6178,
-          text: "إِنَّ ٱلْإِنسَٰنَ لَفِى خُسْرٍ",
-          numberInSurah: 2,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-        {
-          number: 6179,
-          text: "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّٰلِحَٰتِ وَتَوَاصَوْا۟ بِٱلْحَقِّ وَتَوَاصَوْا۟ بِٱلصَّبْرِ",
-          numberInSurah: 3,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-      ],
-      edition: {
-        identifier: "quran-uthmani",
-        language: "ar",
-        name: "القرآن الكريم برسم العثماني (uthmani)",
-        englishName: "Uthmani",
-        format: "text",
-        type: "quran",
-        direction: "rtl",
-      },
-    },
-    {
-      number: 103,
-      name: "سُورَةُ العَصۡرِ",
-      englishName: "Al-Asr",
-      englishNameTranslation: "The Declining Day, Epoch",
-      revelationType: "Meccan",
-      numberOfAyahs: 3,
-      ayahs: [
-        {
-          number: 6177,
-          text: "CONSIDER the flight of time!",
-          numberInSurah: 1,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-        {
-          number: 6178,
-          text: "Verily, man is bound to lose himself",
-          numberInSurah: 2,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-        {
-          number: 6179,
-          text: "unless he be of those who attain to faith, and do good works, and enjoin upon one another the keeping to truth, and enjoin upon one another patience in adversity.",
-          numberInSurah: 3,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-      ],
-      edition: {
-        identifier: "en.asad",
-        language: "en",
-        name: "Asad",
-        englishName: "Muhammad Asad",
-        format: "text",
-        type: "translation",
-        direction: "ltr",
-      },
-    },
-    {
-      number: 103,
-      name: "سُورَةُ العَصۡرِ",
-      englishName: "Al-Asr",
-      englishNameTranslation: "The Declining Day, Epoch",
-      revelationType: "Meccan",
-      numberOfAyahs: 3,
-      ayahs: [
-        {
-          number: 6177,
-          text: "By the declining day,",
-          numberInSurah: 1,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-        {
-          number: 6178,
-          text: "Lo! man is a state of loss,",
-          numberInSurah: 2,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-        {
-          number: 6179,
-          text: "Save those who believe and do good works, and exhort one another to truth and exhort one another to endurance.",
-          numberInSurah: 3,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-      ],
-      edition: {
-        identifier: "en.pickthall",
-        language: "en",
-        name: "Pickthall",
-        englishName: "Mohammed Marmaduke William Pickthall",
-        format: "text",
-        type: "translation",
-        direction: "ltr",
-      },
-    },
-    {
-      number: 103,
-      name: "سُورَةُ العَصۡرِ",
-      englishName: "Al-Asr",
-      englishNameTranslation: "The Declining Day, Epoch",
-      revelationType: "Meccan",
-      numberOfAyahs: 3,
-      ayahs: [
-        {
-          number: 6177,
-          audio: "https://cdn.islamic.network/quran/audio/192/en.walk/6177.mp3",
-          audioSecondary: [],
-          text: "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلْعَصْرِ",
-          numberInSurah: 1,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-        {
-          number: 6178,
-          audio: "https://cdn.islamic.network/quran/audio/192/en.walk/6178.mp3",
-          audioSecondary: [],
-          text: "إِنَّ ٱلْإِنسَٰنَ لَفِى خُسْرٍ",
-          numberInSurah: 2,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-        {
-          number: 6179,
-          audio: "https://cdn.islamic.network/quran/audio/192/en.walk/6179.mp3",
-          audioSecondary: [],
-          text: "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّٰلِحَٰتِ وَتَوَاصَوْا۟ بِٱلْحَقِّ وَتَوَاصَوْا۟ بِٱلصَّبْرِ",
-          numberInSurah: 3,
-          juz: 30,
-          manzil: 7,
-          page: 601,
-          ruku: 545,
-          hizbQuarter: 240,
-          sajda: false,
-        },
-      ],
-      edition: {
-        identifier: "en.walk",
-        language: "en",
-        name: "Ibrahim Walk",
-        englishName: "Ibrahim Walk",
-        format: "audio",
-        type: "versebyverse",
-        direction: null,
-      },
-    },
-  ];
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import type {
+  MergedAyah,
+  TransformedSurahResponse,
+} from "@/components/redux/api/surahsApi";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item";
+import RenderRevelationImage from "@/components/features/over-view/common/RenderRevelationImage";
+import { Separator } from "@/components/ui/separator";
 
-  const response2 = [
-    {
-      number: 103,
-      name: "سُورَةُ العَصۡرِ",
-      englishName: "Al-Asr",
-      englishNameTranslation: "The Declining Day, Epoch",
-      revelationType: "Meccan",
-      numberOfAyahs: 3,
-    },
-    {
-      number: 103,
-      name: "سُورَةُ العَصۡرِ",
-      englishName: "Al-Asr",
-      englishNameTranslation: "The Declining Day, Epoch",
-      revelationType: "Meccan",
-      numberOfAyahs: 3,
-    },
-    {
-      number: 103,
-      name: "سُورَةُ العَصۡرِ",
-      englishName: "Al-Asr",
-      englishNameTranslation: "The Declining Day, Epoch",
-      revelationType: "Meccan",
-      numberOfAyahs: 3,
-    },
-  ];
+interface CompleteSurahViewProps {
+  surah: TransformedSurahResponse | undefined;
+}
 
-  //   console.log(
-  //     response.flatMap((each) => {
-  //       return each.ayahs;
-  //     })
-  //   );
+const CompleteSurahView = ({ surah }: CompleteSurahViewProps) => {
+  if (!surah || !surah.surahInfo) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>No Data</CardTitle>
+          <CardDescription>
+            Nothing to show for the selected surah.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    );
+  }
 
-  //   console.log(
-  //     response.map((each) => {
-  //       return each.ayahs;
-  //     })
-  //   );
+  const renderAyahTranslations = (ayah: MergedAyah) => {
+    const translationKeys = Object.keys(ayah).filter((key) =>
+      key.startsWith("text")
+    );
+    // remove 'text' as it is the main one
+    const otherTranslations = translationKeys.filter(
+      (key) => key !== "text" && key !== "text3"
+    );
 
-  const responseMap = response.reduce((acc, items) => {
-    acc.push(items);
-  }, []);
+    return otherTranslations.map((key) => (
+      <div key={key} className="mt-2">
+        <p className="text-sm font-semibold">
+          {key.replace("text", "Translation ")}
+        </p>
+        <p className="text-sm text-muted-foreground">{String(ayah[key])}</p>
+        <Separator className="my-1" />
+      </div>
+    ));
+  };
 
-  console.log(responseMap);
+  return (
+    <div className="p-4">
+      {/* Redesigned Header */}
+      <Item
+        variant="outline"
+        className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 p-6 rounded-lg shadow-md"
+      >
+        <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+          <ItemMedia
+            variant="icon"
+            className="flex flex-col items-center justify-center min-w-[60px] min-h-[60px] rounded-full text-xl font-bold"
+          >
+            <span>{surah.surahInfo.number}</span>
+          </ItemMedia>
 
-  //   const response2Map = response2.reduce((acc, items) => {
-  //     return { items };
-  //   }, {});
+          <RenderRevelationImage
+            revelationType={surah.surahInfo.revelationType}
+          />
 
-  //   console.log(response2Map);
+          <ItemContent className="space-y-1">
+            <ItemTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              {surah.surahInfo.englishName}
+            </ItemTitle>
+            <ItemDescription className="text-base text-muted-foreground">
+              {surah.surahInfo.englishNameTranslation}
+            </ItemDescription>
+          </ItemContent>
+        </div>
 
-  //   response.map((each) => {
-  //     each.ayahs.reduce((acc, items) => {
-  //       console.log(acc);
-  //       console.log(items);
-  //     }, {});
-  //   });
+        <ItemActions className="flex flex-col items-center sm:items-end space-y-2 sm:space-y-0 sm:space-x-2 mt-4 sm:mt-0">
+          <span className="font-arabic text-3xl text-gray-800 dark:text-gray-200">
+            {surah.surahInfo.name}
+          </span>
+          <div className="flex gap-2 mt-2">
+            <Badge
+              variant="default"
+              className="text-sm font-semibold px-3 py-1"
+            >
+              Ayahs {surah.surahInfo.numberOfAyahs}
+            </Badge>
+            <Badge
+              variant="secondary"
+              className="text-sm font-semibold px-3 py-1"
+            >
+              {surah.surahInfo.revelationType}
+            </Badge>
+          </div>
+        </ItemActions>
+      </Item>
 
-  return <div>index</div>;
+      {/* Verse List - without Collapsible, more modern look */}
+      <div className="space-y-6">
+        {surah.ayahs.map((ayah) => (
+          <Card
+            key={ayah.numberInSurah}
+            className="group hover:shadow-lg transition-shadow duration-300 ease-in-out"
+          >
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-xl text-gray-800 dark:text-gray-200">
+                  Verse {ayah.numberInSurah}
+                </h3>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <p className="text-3xl arabic-text text-right leading-relaxed mb-4 text-gray-900 dark:text-gray-100">
+                {ayah.text}
+              </p>
+              <div className="border-t pt-4 mt-4 space-y-3">
+                {renderAyahTranslations(ayah)}
+              </div>
+            </CardContent>
+            {ayah.audio && (
+              <CardFooter className="pt-0">
+                <audio controls src={ayah.audio} className="w-full">
+                  Your browser does not support the audio element.
+                </audio>
+              </CardFooter>
+            )}
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default CompleteSurahView;

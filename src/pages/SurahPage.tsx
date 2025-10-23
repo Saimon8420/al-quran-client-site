@@ -6,7 +6,6 @@ import { useParams } from "react-router";
 
 const SurahPage = () => {
   const { surah } = useParams();
-
   const {
     data: surahData,
     isError,
@@ -20,16 +19,15 @@ const SurahPage = () => {
       skip: !surah,
     }
   );
-  useToast({ isError, isSuccess, error, data: surahData });
+  useToast({ isError, isSuccess, error });
 
   if (isLoading || isFetching) {
     return <Loader />;
   }
 
-  // console.log(surahData?.data);
   return (
     <div>
-      <CompleteSurahView />
+      <CompleteSurahView surah={surahData} />
     </div>
   );
 };

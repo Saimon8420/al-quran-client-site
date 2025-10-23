@@ -29,6 +29,7 @@ interface SurahSummary {
   numberOfAyahs: number;
   revelationType: string;
   ayahs: Ayah[];
+  edition?: Editions;
 }
 
 // SurahDetail Interface
@@ -49,6 +50,15 @@ interface VerseResponse extends Ayah {
   surah: SurahSummary;
 }
 
+export interface MergedAyah extends Ayah {
+  [key: string]: string | unknown;
+}
+
+export interface TransformedSurahResponse {
+  surahInfo: Omit<SurahSummary, "ayahs" | "edition"> | null;
+  ayahs: MergedAyah[];
+}
+
 export const surahsApi = quranBaseApi.injectEndpoints({
   endpoints: (builder) => ({
     // get list of all 114 surahs
@@ -61,8 +71,8 @@ export const surahsApi = quranBaseApi.injectEndpoints({
       },
     }),
 
-    // get full surahs with single editions
-    getFullSurahs: builder.query<SurahDetail, FullSurahs>({
+    // get full surahs with multiple editions
+    getFullSurahs: builder.query<TransformedSurahResponse, FullSurahs>({
       query: (data: FullSurahs) => {
         return {
           url: `/surah/${data.number}/editions/${
@@ -71,25 +81,40 @@ export const surahsApi = quranBaseApi.injectEndpoints({
           method: "GET",
         };
       },
-      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
 
-          const modifyData = data?.data?.map((each) => {
-            return each.ayahs.map((eachAyah, i) =>
-              eachAyah.audio ? eachAyah.audio : eachAyah.text
-            );
-          });
+      // ✅ transformResponse runs automatically before data reaches the cache
+      transformResponse: (data: SurahDetail) => {
+        if (!data.data || data.data.length === 0) {
+          return { surahInfo: null, ayahs: [] };
+        }
 
-          // console.log(modifyData);
-          // console.log(data?.data);
-        } catch (err: unknown) {
-          if (err instanceof Error) {
-            console.error(err.message);
-          } else {
-            console.error(String(err));
+        const ayahsMap: { [key: number]: MergedAyah } = {};
+
+        for (const surahEdition of data.data) {
+          for (const ayah of surahEdition.ayahs) {
+            const key = ayah.number; // Using absolute ayah number as in original
+            if (!ayahsMap[key]) {
+              ayahsMap[key] = { ...ayah };
+            } else {
+              const textKey = `text${
+                Object.keys(ayahsMap[key]).filter((k) => k.startsWith("text"))
+                  .length
+              }`;
+              ayahsMap[key][textKey] = ayah.text;
+            }
+            // Prioritize audio from any edition that provides it
+            if (ayah.audio) {
+              ayahsMap[key].audio = ayah.audio;
+            }
           }
         }
+
+        const merged = Object.values(ayahsMap);
+        // Extract surah info from the first edition, excluding ayahs and edition details
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { ayahs, edition, ...surahInfo } = data.data[0];
+
+        return { surahInfo, ayahs: merged }; // ✅ This becomes your query's data
       },
     }),
 
