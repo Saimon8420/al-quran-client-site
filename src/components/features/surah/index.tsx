@@ -1,3 +1,4 @@
+import { AlertTriangle } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -21,12 +22,47 @@ import {
 } from "@/components/ui/item";
 import RenderRevelationImage from "@/components/features/over-view/common/RenderRevelationImage";
 import { Separator } from "@/components/ui/separator";
+import { cleanedData } from "@/lib/quranUtlis";
+import type { SerializedError } from "@reduxjs/toolkit";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 interface CompleteSurahViewProps {
   surah: TransformedSurahResponse | undefined;
+  error?: FetchBaseQueryError | SerializedError | undefined;
 }
 
-const CompleteSurahView = ({ surah }: CompleteSurahViewProps) => {
+const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
+  const getErrorMessage = () => {
+    if (error) {
+      if (
+        "data" in error &&
+        error.data &&
+        typeof error.data === "object" &&
+        "data" in error.data &&
+        Array.isArray(error.data.data)
+      ) {
+        return String(error.data.data[0]);
+      }
+      if ("error" in error) {
+        return error.error;
+      }
+    }
+    return "Failed to load surah data. Please try again later.";
+  };
+
+  if (error) {
+    // Handle error state
+    return (
+      <div className="bg-destructive/10 border border-destructive/20 text-destructive p-4 rounded-lg">
+        <div className="flex items-center gap-2">
+          <AlertTriangle className="h-6 w-6" />
+          <h3 className="font-semibold">An error occurred</h3>
+        </div>
+        <p className="text-sm mt-2">{getErrorMessage()}</p>
+      </div>
+    );
+  }
+
   if (!surah || !surah.surahInfo) {
     return (
       <Card>
@@ -112,7 +148,7 @@ const CompleteSurahView = ({ surah }: CompleteSurahViewProps) => {
 
       {/* Verse List - without Collapsible, more modern look */}
       <div className="space-y-6">
-        {surah.ayahs.map((ayah) => (
+        {cleanedData(surah?.ayahs).map((ayah) => (
           <Card
             key={ayah.numberInSurah}
             className="group hover:shadow-lg transition-shadow duration-300 ease-in-out"
@@ -125,10 +161,10 @@ const CompleteSurahView = ({ surah }: CompleteSurahViewProps) => {
               </div>
             </CardHeader>
             <CardContent className="pt-0">
-              <p className="text-3xl arabic-text text-right leading-relaxed mb-4 text-gray-900 dark:text-gray-100">
+              <p className="text-2xl arabic-text text-right leading-relaxed text-gray-900 dark:text-gray-100">
                 {ayah.text}
               </p>
-              <div className="border-t pt-4 mt-4 space-y-3">
+              <div className="border-t mt-4 space-y-2">
                 {renderAyahTranslations(ayah)}
               </div>
             </CardContent>
@@ -145,5 +181,4 @@ const CompleteSurahView = ({ surah }: CompleteSurahViewProps) => {
     </div>
   );
 };
-
 export default CompleteSurahView;

@@ -1,7 +1,6 @@
 import CompleteSurahView from "@/components/features/surah";
 import { useGetFullSurahsQuery } from "@/components/redux/api/surahsApi";
 import Loader from "@/components/ui/loader/loader";
-import useToast from "@/hooks/use-toast";
 import { useParams } from "react-router";
 
 const SurahPage = () => {
@@ -19,7 +18,6 @@ const SurahPage = () => {
       skip: !surah,
     }
   );
-  useToast({ isError, isSuccess, error });
 
   if (isLoading || isFetching) {
     return <Loader />;
@@ -27,7 +25,7 @@ const SurahPage = () => {
 
   return (
     <div>
-      <CompleteSurahView surah={surahData} />
+      <CompleteSurahView surah={surahData} error={error} />
     </div>
   );
 };

@@ -7,7 +7,7 @@ interface FullSurahs {
 }
 
 // Shared Ayah/Verse structure
-interface Ayah {
+export interface Ayah {
   number: number;
   text: string;
   numberInSurah: number;
