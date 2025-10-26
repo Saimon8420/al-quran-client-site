@@ -76,7 +76,7 @@ export const surahsApi = quranBaseApi.injectEndpoints({
       query: (data: FullSurahs) => {
         return {
           url: `/surah/${data.number}/editions/${
-            data?.edition || "quran-uthmani,en.asad,en.pickthall,en.walk"
+            data?.edition || "quran-simple,en.asad,en.pickthall,en.walk"
           }`,
           method: "GET",
         };

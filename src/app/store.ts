@@ -1,11 +1,13 @@
 import { quranBaseApi } from "@/components/redux/api/baseApi";
 import { configureStore } from "@reduxjs/toolkit";
 import metaReducer from "@/components/redux/slices/metaSlice";
+import editionReducer from "@/components/redux/slices/editionSlice";
 
 export const store = configureStore({
   reducer: {
     [quranBaseApi.reducerPath]: quranBaseApi.reducer,
     meta: metaReducer,
+    edition: editionReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

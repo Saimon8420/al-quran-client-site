@@ -1,5 +1,6 @@
 import type { RootState } from "@/app/store";
 import OverView from "@/components/features/over-view";
+import SettingDefault from "@/components/features/settings";
 import { useGetMetaDataQuery } from "@/components/redux/api/metaDataApi";
 import Bismillah from "@/components/ui/bismillah/bismillah";
 import Loader from "@/components/ui/loader/loader";
@@ -54,6 +55,8 @@ const HomePage = () => {
         </TabsList>
         <OverView currentTab={currentTab} />
       </Tabs>
+
+      <SettingDefault />
     </div>
   );
 };
