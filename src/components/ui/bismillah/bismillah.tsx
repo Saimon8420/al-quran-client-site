@@ -34,7 +34,7 @@ const Bismillah: React.FC<BismillahProps> = ({
         <CardContent>
           <p
             className={cn(
-              "text-4xl sm:text-5xl md:text-6xl font-[Amiri] leading-snug tracking-wide",
+              "text-4xl sm:text-xl md:text-2xl font-[Amiri] leading-snug tracking-wide",
               classNameArabic
             )}
           >
@@ -43,7 +43,7 @@ const Bismillah: React.FC<BismillahProps> = ({
 
           <Separator className="my-4 w-1/3 mx-auto" />
 
-          <p className={cn("italic text-lg sm:text-xl", classNameEnglish)}>
+          <p className={cn("italic text-sm sm:text-xl", classNameEnglish)}>
             In the name of Allah, the Most Gracious, the Most Merciful
           </p>
         </CardContent>

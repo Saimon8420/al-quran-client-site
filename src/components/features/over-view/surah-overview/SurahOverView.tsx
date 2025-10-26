@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/item";
 import type { Surah } from "@/components/redux/slices/metaSlice";
 import RenderRevelationImage from "../common/RenderRevelationImage";
+import { useNavigate } from "react-router";
 
 const SurahOverView = () => {
   const { surahs } = useSelector((state: RootState) => state.meta);
@@ -28,12 +29,15 @@ const SurahOverView = () => {
     return nameMatch || numberMatch;
   };
 
+  const navigate = useNavigate();
+
   const renderItem = (surah: Surah) => {
     return (
       <Item
         key={surah.number}
         variant="outline"
         className="flex items-center justify-between gap-4"
+        onClick={() => navigate(surah.number.toString())}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia
