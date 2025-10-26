@@ -37,7 +37,7 @@ const SurahOverView = () => {
         key={surah.number}
         variant="outline"
         className="flex items-center justify-between gap-4"
-        onClick={() => navigate(`surah/${surah.number.toString()}`)}
+        onClick={() => navigate(`surah/${surah.number}`)}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia
