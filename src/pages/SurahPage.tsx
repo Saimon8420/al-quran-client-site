@@ -1,6 +1,7 @@
 import CompleteSurahView from "@/components/features/surah";
 import { useGetFullSurahsQuery } from "@/components/redux/api/surahsApi";
 import Loader from "@/components/ui/loader/loader";
+import NoDataFound from "@/components/ui/nodata/no-data-found";
 import { useParams } from "react-router";
 import { toast } from "sonner";
 
@@ -21,11 +22,13 @@ const SurahPage = () => {
   );
 
   if (isInvalidSurah) {
-    return toast.error("Invalid Url", {
+    toast.error("Invalid Url", {
       duration: 3000,
       closeButton: true,
     });
+    return <NoDataFound />;
   }
+
   let toastId: string | number = "";
 
   if (isLoading || isFetching) {
