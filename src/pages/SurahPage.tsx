@@ -5,12 +5,7 @@ import { useParams } from "react-router";
 
 const SurahPage = () => {
   const { surah } = useParams();
-  const {
-    data: surahData,
-    error,
-    isLoading,
-    isFetching,
-  } = useGetFullSurahsQuery(
+  const { data: surahData, error, isLoading, isFetching } = useGetFullSurahsQuery(
     { number: Number(surah) },
     {
       skip: !surah,

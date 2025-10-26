@@ -1,5 +1,6 @@
 import App from "@/App";
 import HomePage from "@/pages/HomePage";
+import NotFoundPage from "@/pages/NotFoundPage";
 import SurahPage from "@/pages/SurahPage";
 import { createBrowserRouter } from "react-router";
 
@@ -9,7 +10,8 @@ export const router = createBrowserRouter([
     Component: App,
     children: [
       { index: true, Component: HomePage },
-      { path: ":surah", Component: SurahPage },
+      { path: "surah/:surah", Component: SurahPage },
+      { path: "*", Component: NotFoundPage },
     ],
   },
 ]);
