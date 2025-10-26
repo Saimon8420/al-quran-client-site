@@ -96,10 +96,9 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
 
     return otherTranslations.map((key) => (
       <div key={key} className="mt-2">
-        <p className="text-sm font-semibold">
-          {key.replace("text", "Translation ")}
+        <p className="text-sm text-muted-foreground py-2">
+          {String(ayah[key])}
         </p>
-        <p className="text-sm text-muted-foreground">{String(ayah[key])}</p>
         <Separator className="my-1" />
       </div>
     ));
