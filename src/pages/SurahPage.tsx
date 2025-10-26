@@ -7,9 +7,7 @@ const SurahPage = () => {
   const { surah } = useParams();
   const {
     data: surahData,
-    isError,
     error,
-    isSuccess,
     isLoading,
     isFetching,
   } = useGetFullSurahsQuery(
