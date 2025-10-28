@@ -22,6 +22,7 @@ import SettingDefault from "./features/settings";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTab } from "./redux/slices/metaSlice";
 import type { RootState } from "@/app/store";
+import { useLocation } from "react-router";
 
 const navItems = [
   {
@@ -41,6 +42,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const currentTab = useSelector((state: RootState) => state.meta.currentTab);
   const dispactch = useDispatch();
 
+  const location = useLocation();
   return (
     <Sidebar {...props}>
       <SidebarHeader></SidebarHeader>
@@ -54,62 +56,72 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
 
-        {navItems.map((item) => (
-          <Collapsible
-            key={item.title}
-            defaultOpen
-            className="group/collapsible"
-          >
+        <div className={`${location.pathname === "/" ? "block" : "hidden"}`}>
+          {navItems.map((item) => (
+            <Collapsible
+              key={item.title}
+              defaultOpen
+              className="group/collapsible"
+            >
+              <SidebarGroup>
+                <SidebarGroupLabel
+                  asChild
+                  className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
+                >
+                  <CollapsibleTrigger className="flex w-full items-center">
+                    {item.title}
+                    <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                  </CollapsibleTrigger>
+                </SidebarGroupLabel>
+                <CollapsibleContent>
+                  <SidebarGroupContent>
+                    <SidebarMenu className="px-4 mt-2 cursor-pointer">
+                      {item.items.map((subItem) => (
+                        <SidebarMenuItem key={subItem.title}>
+                          <SidebarMenuButton
+                            asChild
+                            onClick={() =>
+                              dispactch(setCurrentTab(subItem.url))
+                            }
+                            isActive={subItem.url === currentTab}
+                          >
+                            <p>{subItem.title}</p>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </CollapsibleContent>
+              </SidebarGroup>
+            </Collapsible>
+          ))}
+        </div>
+
+        <div
+          className={`${
+            location.pathname.includes("/surah") ? "block" : "hidden"
+          }`}
+        >
+          <Collapsible className="group/collapsible" defaultOpen>
             <SidebarGroup>
               <SidebarGroupLabel
                 asChild
                 className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
               >
                 <CollapsibleTrigger className="flex w-full items-center">
-                  {item.title}
+                  Setting
                   <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
                 </CollapsibleTrigger>
               </SidebarGroupLabel>
+
               <CollapsibleContent>
                 <SidebarGroupContent>
-                  <SidebarMenu className="px-4 mt-2">
-                    {item.items.map((subItem) => (
-                      <SidebarMenuItem key={subItem.title}>
-                        <SidebarMenuButton
-                          asChild
-                          onClick={() => dispactch(setCurrentTab(subItem.url))}
-                          isActive={subItem.url === currentTab}
-                        >
-                          <p>{subItem.title}</p>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
+                  <SettingDefault />
                 </SidebarGroupContent>
               </CollapsibleContent>
             </SidebarGroup>
           </Collapsible>
-        ))}
-
-        <Collapsible className="group/collapsible">
-          <SidebarGroup>
-            <SidebarGroupLabel
-              asChild
-              className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
-            >
-              <CollapsibleTrigger className="flex w-full items-center">
-                Setting
-                <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-              </CollapsibleTrigger>
-            </SidebarGroupLabel>
-
-            <CollapsibleContent>
-              <SidebarGroupContent>
-                <SettingDefault />
-              </SidebarGroupContent>
-            </CollapsibleContent>
-          </SidebarGroup>
-        </Collapsible>
+        </div>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
