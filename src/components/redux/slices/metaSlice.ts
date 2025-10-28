@@ -35,7 +35,10 @@ interface MetaState {
   ayahs: {
     count: number;
   };
+  currentTab: string;
 }
+
+// const [currentTab, setCurrentTab] = useState<string>("surahs");
 
 const initialState: MetaState = {
   tabList: [],
@@ -47,6 +50,7 @@ const initialState: MetaState = {
   sajdas: { count: 0, references: [] },
   surahs: { count: 0, references: [] },
   ayahs: { count: 0 },
+  currentTab: "surahs",
 };
 
 export const metaSlice = createSlice({
@@ -59,9 +63,12 @@ export const metaSlice = createSlice({
     setMetaData: (state, action: PayloadAction<Partial<MetaState>>) => {
       Object.assign(state, action.payload);
     },
+    setCurrentTab: (state, action: PayloadAction<string>) => {
+      state.currentTab = action.payload;
+    },
   },
 });
 
-export const { setTabList, setMetaData } = metaSlice.actions;
+export const { setTabList, setMetaData, setCurrentTab } = metaSlice.actions;
 
 export default metaSlice.reducer;

@@ -35,7 +35,7 @@ const CustomSelect = <T extends { identifier: string }>({
       onValueChange={(value) => dispatch(setUserSelect({ value, type }))}
       defaultValue={defaultValue}
     >
-      <SelectTrigger className="max-w-[180px]">
+      <SelectTrigger className="max-w-full">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

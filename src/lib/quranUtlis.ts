@@ -1,9 +1,17 @@
 import type { Ayah, MergedAyah } from "@/components/redux/api/surahsApi";
 
+interface DataProps {
+  data: MergedAyah[] | undefined;
+  surahNumber: number;
+}
+
 // Dynamically remove "Bismillah" if it appears
-export const cleanedData = (data: MergedAyah[] | undefined) => {
+export const cleanedData = ({ data, surahNumber }: DataProps) => {
   if (!data) {
     return [];
+  }
+  if (surahNumber === 1) {
+    return data;
   }
   return data.map((item: Ayah) => {
     const makingPattern = data[0].text.split(" ");

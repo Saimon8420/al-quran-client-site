@@ -96,7 +96,7 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
 
     return otherTranslations.map((key) => (
       <div key={key} className="mt-2">
-        <p className="text-sm text-muted-foreground py-2">
+        <p className="text-md text-muted-foreground py-2">
           {String(ayah[key])}
         </p>
         <Separator className="my-1" />
@@ -135,7 +135,7 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
           </div>
 
           <ItemActions className="flex flex-col items-center sm:items-end space-y-2 sm:space-y-0 sm:space-x-2 mt-4 sm:mt-0 order-2 md:order-3">
-            <span className="font-arabic text-3xl text-gray-800 dark:text-gray-200">
+            <span className="arabic-text text-3xl text-gray-800 dark:text-gray-200">
               {surah.surahInfo.name}
             </span>
             <div className="flex gap-2 mt-2">
@@ -167,7 +167,10 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
 
       {/* Verse List - without Collapsible, more modern look */}
       <div className="space-y-6">
-        {cleanedData(surah?.ayahs).map((ayah) => (
+        {cleanedData({
+          data: surah?.ayahs,
+          surahNumber: surah.surahInfo.number,
+        }).map((ayah) => (
           <Card
             key={ayah.numberInSurah}
             className="group hover:shadow-lg transition-shadow duration-300 ease-in-out"
@@ -180,7 +183,7 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl arabic-text text-right leading-relaxed text-gray-900 dark:text-gray-100">
+              <p className="text-5xl text-right leading-relaxed text-gray-900 dark:text-gray-100 arabic-text">
                 {ayah.text}{" "}
                 <span className="text-sm bg-primary text-primary-foreground rounded-full px-2 py-1">
                   ۝{toArabicNumerals(ayah.numberInSurah)}

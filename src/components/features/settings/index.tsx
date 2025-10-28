@@ -3,9 +3,11 @@ import { useGetEditionsDataQuery } from "@/components/redux/api/metaDataApi";
 import CustomSelect from "@/components/ui/custom-select/custom-select";
 import { useSelector } from "react-redux";
 import type { Editions } from "@/components/redux/api/metaDataApi";
+import { Spinner } from "@/components/ui/spinner";
+import useToast from "@/hooks/use-toast";
 
 const SettingDefault = () => {
-  useGetEditionsDataQuery();
+  const { isLoading, isFetching, isError, error } = useGetEditionsDataQuery();
 
   const editions = useSelector((state: RootState) => state?.edition);
 
@@ -27,12 +29,22 @@ const SettingDefault = () => {
     </>
   );
 
+  // hooks for display toast
+  useToast({ isError, error });
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="my-4 mx-auto flex items-center justify-center">
+        <Spinner className="size-6" />
+      </div>
+    );
+  }
+
   return (
-    <div className="p-4 space-y-4">
-      <h2 className="text-2xl font-bold">Settings</h2>
-      <div className="flex items-center justify-center gap-4">
-        <div className="">
-          <h3 className="text-lg font-semibold">Arabic Text</h3>
+    <div className="p-4">
+      <div className="grid grid-cols-1 gap-4">
+        <div className="flex flex-col gap-1">
+          <h3 className="text-xs font-semibold">Arabic Text</h3>
           <CustomSelect
             data={editions.arabicTextFormat}
             placeholder="Select arabic text"
@@ -43,8 +55,8 @@ const SettingDefault = () => {
           />
         </div>
 
-        <div>
-          <h3 className="text-lg font-semibold">Translation 1</h3>
+        <div className="flex flex-col gap-1">
+          <h3 className="text-xs font-semibold">Translation 1</h3>
           <CustomSelect
             data={editions.translationTextFormat}
             placeholder="Select translation 1"
@@ -55,8 +67,8 @@ const SettingDefault = () => {
           />
         </div>
 
-        <div className="">
-          <h3 className="text-lg font-semibold">Translation 2</h3>
+        <div className="flex flex-col gap-1">
+          <h3 className="text-xs font-semibold">Translation 2</h3>
           <CustomSelect
             data={editions.translationTextFormat}
             placeholder="Select translation 2"
@@ -67,8 +79,8 @@ const SettingDefault = () => {
           />
         </div>
 
-        <div className="">
-          <h3 className="text-lg font-semibold">Audio</h3>
+        <div className="flex flex-col gap-1">
+          <h3 className="text-xs font-semibold">Audio</h3>
           <CustomSelect
             data={editions.audioFormat}
             placeholder="Select audio"

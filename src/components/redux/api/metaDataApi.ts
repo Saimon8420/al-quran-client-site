@@ -76,7 +76,13 @@ export const metaDataApi = quranBaseApi.injectEndpoints({
             );
 
             const arabicTextFormat = textFormat.filter(
-              (each) => each.type === "quran"
+              (each) =>
+                each.type === "quran" &&
+                each.identifier !== "quran-wordbyword" &&
+                each.identifier !== "quran-wordbyword-2" &&
+                each.identifier !== "quran-kids" &&
+                each.identifier !== "quran-corpus-qd" &&
+                each.identifier !== "quran-tajweed"
             );
 
             const tafsirTextFormat = textFormat.filter(

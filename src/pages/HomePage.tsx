@@ -1,33 +1,26 @@
 import type { RootState } from "@/app/store";
 import OverView from "@/components/features/over-view";
-import SettingDefault from "@/components/features/settings";
 import { useGetMetaDataQuery } from "@/components/redux/api/metaDataApi";
+import { setCurrentTab } from "@/components/redux/slices/metaSlice";
 import Bismillah from "@/components/ui/bismillah/bismillah";
 import Loader from "@/components/ui/loader/loader";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useToast from "@/hooks/use-toast";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const HomePage = () => {
   // to get metaData
-  const {
-    data: metaData,
-    isLoading,
-    isFetching,
-    isError,
-    error,
-    isSuccess,
-  } = useGetMetaDataQuery();
+  const { isLoading, isFetching, isError, error } = useGetMetaDataQuery();
 
   // hooks for display toast
-  useToast({ isError, error, isSuccess, data: metaData });
+  useToast({ isError, error });
 
   const tabList: string[] = useSelector(
     (state: RootState) => state.meta.tabList
   );
 
-  const [currentTab, setCurrentTab] = useState<string>("surahs"); // default tab
+  const currentTab = useSelector((state: RootState) => state.meta.currentTab);
+  const dispactch = useDispatch();
 
   if (isLoading || isFetching || !tabList) {
     return <Loader />;
@@ -40,7 +33,10 @@ const HomePage = () => {
         classNameArabic="text-sm md:text-xl"
         classNameEnglish="text-xs md:text-lg"
       />
-      <Tabs value={currentTab} onValueChange={setCurrentTab}>
+      <Tabs
+        value={currentTab}
+        onValueChange={(value) => dispactch(setCurrentTab(value))}
+      >
         <TabsList className="2xl:min-w-7xl xl:min-w-4xl lg:min-w-2xl md:min-w-md min-w-3xs p-2 md:gap-0 gap-2">
           {tabList &&
             tabList?.map((tab) => (
@@ -55,8 +51,6 @@ const HomePage = () => {
         </TabsList>
         <OverView currentTab={currentTab} />
       </Tabs>
-
-      <SettingDefault />
     </div>
   );
 };
