@@ -17,7 +17,8 @@ interface CustomSelectProps<T> {
   placeholder: string;
   label: string;
   renderOption: (item: T) => ReactNode;
-  type?: Pick<EditionState, "userSelect">;
+  type: keyof EditionState["userSelect"];
+  defaultValue: string;
 }
 
 const CustomSelect = <T extends { identifier: string }>({
@@ -26,10 +27,14 @@ const CustomSelect = <T extends { identifier: string }>({
   label,
   renderOption,
   type,
+  defaultValue,
 }: CustomSelectProps<T>) => {
   const dispatch = useDispatch();
   return (
-    <Select onValueChange={(value) => dispatch(setUserSelect({ value, type }))}>
+    <Select
+      onValueChange={(value) => dispatch(setUserSelect({ value, type }))}
+      defaultValue={defaultValue}
+    >
       <SelectTrigger className="max-w-[180px]">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

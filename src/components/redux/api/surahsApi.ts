@@ -76,7 +76,8 @@ export const surahsApi = quranBaseApi.injectEndpoints({
       query: (data: FullSurahs) => {
         return {
           url: `/surah/${data.number}/editions/${
-            data?.edition || "quran-simple,en.asad,en.pickthall,en.walk"
+            data?.edition ||
+            "quran-simple,en.sahih,bn.bengali,ar.abdurrahmaansudais"
           }`,
           method: "GET",
         };
@@ -114,7 +115,7 @@ export const surahsApi = quranBaseApi.injectEndpoints({
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { ayahs, edition, ...surahInfo } = data.data[0];
 
-        return { surahInfo, ayahs: merged }; // ✅ This becomes your query's data
+        return { surahInfo, ayahs: merged };
       },
     }),
 

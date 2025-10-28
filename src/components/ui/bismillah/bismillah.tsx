@@ -18,7 +18,7 @@ const Bismillah: React.FC<BismillahProps> = ({
   classNameEnglish,
 }) => {
   // Skip Bismillah for Surah At-Tawbah
-  if (surahName?.toLowerCase() === "at-tawbah") return null;
+  if (surahName?.toLowerCase() === "at-tawba") return null;
 
   return (
     <motion.div

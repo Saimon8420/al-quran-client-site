@@ -7,10 +7,10 @@ export interface EditionState {
   translationTextFormat: Editions[];
   arabicTextFormat: Editions[];
   userSelect: {
-    arabicText?: string;
-    translation1?: string;
-    translation2?: string;
-    audio?: string;
+    arabicText: string;
+    translation1: string;
+    translation2: string;
+    audio: string;
   };
 }
 
@@ -20,10 +20,10 @@ const editionState: EditionState = {
   translationTextFormat: [],
   arabicTextFormat: [],
   userSelect: {
-    arabicText: "",
-    translation1: "",
-    translation2: "",
-    audio: "",
+    arabicText: "quran-simple",
+    translation1: "en.sahih",
+    translation2: "bn.bengali",
+    audio: "ar.abdurrahmaansudais",
   },
 };
 
