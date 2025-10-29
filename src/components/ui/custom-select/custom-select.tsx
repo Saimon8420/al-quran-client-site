@@ -31,28 +31,30 @@ const CustomSelect = <T extends { identifier: string }>({
 }: CustomSelectProps<T>) => {
   const dispatch = useDispatch();
   return (
-    <Select
-      onValueChange={(value) => dispatch(setUserSelect({ value, type }))}
-      defaultValue={defaultValue}
-    >
-      <SelectTrigger className="max-w-full">
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>{label}</SelectLabel>
-          {data.map((item) => (
-            <SelectItem
-              className="max-w-[180px]"
-              key={item.identifier}
-              value={item.identifier}
-            >
-              {renderOption(item)}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div>
+      <Select
+        onValueChange={(value) => dispatch(setUserSelect({ value, type }))}
+        defaultValue={defaultValue}
+      >
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>{label}</SelectLabel>
+            {data.map((item) => (
+              <SelectItem
+                className="max-w-[180px]"
+                key={item.identifier}
+                value={item.identifier}
+              >
+                {renderOption(item)}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 

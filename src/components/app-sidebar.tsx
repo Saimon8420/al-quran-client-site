@@ -43,9 +43,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const dispactch = useDispatch();
 
   const location = useLocation();
+
+  const isVisibleSetting =
+    location.pathname.includes("/surah") ||
+    location.pathname.includes("/sajda");
+
   return (
     <Sidebar {...props}>
-      <SidebarHeader></SidebarHeader>
+      <SidebarHeader className="border-b h-16"></SidebarHeader>
       <SidebarContent className="gap-0">
         <SidebarMenu>
           <SidebarMenuItem>
@@ -97,11 +102,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ))}
         </div>
 
-        <div
-          className={`${
-            location.pathname.includes("/surah") ? "block" : "hidden"
-          }`}
-        >
+        <div className={`${isVisibleSetting ? "block" : "hidden"}`}>
           <Collapsible className="group/collapsible" defaultOpen>
             <SidebarGroup>
               <SidebarGroupLabel

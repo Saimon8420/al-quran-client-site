@@ -1,3 +1,8 @@
+import {
+  transFormAyahResponseData,
+  transFormFullSurahResponseData,
+  type TransformedAyah,
+} from "@/lib/quranUtlis";
 import { quranBaseApi } from "./baseApi";
 import type { Editions } from "./metaDataApi";
 
@@ -21,7 +26,7 @@ export interface Ayah {
 }
 
 // Surah-Summary
-interface SurahSummary {
+export interface SurahSummary {
   number: number;
   name: string;
   englishName: string;
@@ -33,7 +38,7 @@ interface SurahSummary {
 }
 
 // SurahDetail Interface
-interface SurahDetail {
+export interface SurahDetail {
   code: number;
   status: string;
   data: SurahSummary[];
@@ -45,11 +50,6 @@ interface VerseData {
   edition?: string;
 }
 
-interface VerseResponse extends Ayah {
-  edition: Editions;
-  surah: SurahSummary;
-}
-
 export interface MergedAyah extends Ayah {
   [key: string]: string | unknown;
 }
@@ -57,6 +57,37 @@ export interface MergedAyah extends Ayah {
 export interface TransformedSurahResponse {
   surahInfo: Omit<SurahSummary, "ayahs" | "edition"> | null;
   ayahs: MergedAyah[];
+}
+
+// sajda info
+export interface SajdaInfo {
+  id: number;
+  recommended: boolean;
+  obligatory: boolean;
+}
+
+// raw ayah response item
+export interface RawAyahItem {
+  number: number;
+  text: string;
+  edition: Editions;
+  surah: Omit<SurahSummary, "ayahs" | "edition"> | null;
+  numberInSurah: number;
+  juz: number;
+  manzil: number;
+  page: number;
+  ruku: number;
+  hizbQuarter: number;
+  sajda: SajdaInfo | boolean;
+  audio?: string;
+  audioSecondary?: string[];
+}
+
+// main API response
+export interface AyahApiResponse {
+  code: number;
+  status: string;
+  data: RawAyahItem[];
 }
 
 export const surahsApi = quranBaseApi.injectEndpoints({
@@ -83,51 +114,26 @@ export const surahsApi = quranBaseApi.injectEndpoints({
         };
       },
 
-      // ✅ transformResponse runs automatically before data reaches the cache
+      // transformResponse runs automatically before data reaches the cache
       transformResponse: (data: SurahDetail) => {
-        if (!data.data || data.data.length === 0) {
-          return { surahInfo: null, ayahs: [] };
-        }
-
-        const ayahsMap: { [key: number]: MergedAyah } = {};
-
-        for (const surahEdition of data.data) {
-          for (const ayah of surahEdition.ayahs) {
-            const key = ayah.number; // Using absolute ayah number as in original
-            if (!ayahsMap[key]) {
-              ayahsMap[key] = { ...ayah };
-            } else {
-              const textKey = `text${
-                Object.keys(ayahsMap[key]).filter((k) => k.startsWith("text"))
-                  .length
-              }`;
-              ayahsMap[key][textKey] = ayah.text;
-            }
-            // Prioritize audio from any edition that provides it
-            if (ayah.audio) {
-              ayahsMap[key].audio = ayah.audio;
-            }
-          }
-        }
-
-        const merged = Object.values(ayahsMap);
-        // Extract surah info from the first edition, excluding ayahs and edition details
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { ayahs, edition, ...surahInfo } = data.data[0];
-
-        return { surahInfo, ayahs: merged };
+        return transFormFullSurahResponseData(data);
       },
     }),
 
     // get a specific verse
-    getSpecificVerse: builder.query<VerseResponse, VerseData>({
+    getSpecificAyah: builder.query<TransformedAyah, VerseData>({
       query: (data: VerseData) => {
         return {
-          url: `/verse/${data.surah}/${data.ayah}?edition=${
-            data.edition || "en.sahih"
+          url: `/ayah/${data.surah}:${data.ayah}/editions/${
+            data.edition ||
+            "quran-simple,en.sahih,bn.bengali,ar.abdurrahmaansudais"
           }`,
           method: "GET",
         };
+      },
+      // transformResponse runs automatically before data reaches the cache
+      transformResponse: (data: AyahApiResponse) => {
+        return transFormAyahResponseData(data);
       },
     }),
   }),
@@ -136,5 +142,5 @@ export const surahsApi = quranBaseApi.injectEndpoints({
 export const {
   useGetAllSurahsQuery,
   useGetFullSurahsQuery,
-  useGetSpecificVerseQuery,
+  useGetSpecificAyahQuery,
 } = surahsApi;

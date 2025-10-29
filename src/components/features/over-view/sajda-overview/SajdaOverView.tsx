@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/item";
 import type { SectionReference } from "@/components/redux/slices/metaSlice";
 import RenderRevelationImage from "../common/RenderRevelationImage";
+import { useNavigate } from "react-router";
 
 const SajdaOverView = () => {
   const { sajdas, surahs } = useSelector((state: RootState) => state.meta);
@@ -31,6 +32,8 @@ const SajdaOverView = () => {
     return nameMatch || numberMatch;
   };
 
+  const navigate = useNavigate();
+
   const renderItem = (sajda: SectionReference, index: number) => {
     const surah = surahs.references.find((s) => s.number === sajda.surah);
     if (!surah) return null;
@@ -40,6 +43,7 @@ const SajdaOverView = () => {
         key={index}
         variant="outline"
         className="flex items-center justify-between gap-4"
+        onClick={() => navigate(`sajda/${sajda.surah}/${sajda.ayah}`)}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia

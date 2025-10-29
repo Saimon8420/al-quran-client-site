@@ -12,20 +12,11 @@ import type {
   MergedAyah,
   TransformedSurahResponse,
 } from "@/components/redux/api/surahsApi";
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from "@/components/ui/item";
-import RenderRevelationImage from "@/components/features/over-view/common/RenderRevelationImage";
 import { Separator } from "@/components/ui/separator";
 import { cleanedData } from "@/lib/quranUtlis";
 import type { SerializedError } from "@reduxjs/toolkit";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import Bismillah from "@/components/ui/bismillah/bismillah";
+import SurahHeader from "@/components/ui/surah-header/surah-header";
 
 interface CompleteSurahViewProps {
   surah: TransformedSurahResponse | undefined;
@@ -106,64 +97,8 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
 
   return (
     <div className="p-4">
-      {/* Redesigned Header */}
-      <div className="bg-card rounded-lg p-2 shadow-sm mb-6">
-        <Item
-          variant="outline"
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-lg p-2"
-        >
-          <div className="flex flex-col sm:flex-row items-center md:gap-4 gap-2 text-center sm:text-left order-1 justify-center">
-            <ItemMedia
-              variant="icon"
-              className="flex flex-col items-center justify-center min-w-[60px] min-h-[60px] rounded-full text-xl font-bold mx-auto"
-            >
-              <span>{surah.surahInfo.number}</span>
-            </ItemMedia>
-
-            <RenderRevelationImage
-              revelationType={surah.surahInfo.revelationType}
-            />
-
-            <ItemContent className="space-y-1">
-              <ItemTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {surah.surahInfo.englishName}
-              </ItemTitle>
-              <ItemDescription className="text-base text-muted-foreground">
-                {surah.surahInfo.englishNameTranslation}
-              </ItemDescription>
-            </ItemContent>
-          </div>
-
-          <ItemActions className="flex flex-col items-center sm:items-end space-y-2 sm:space-y-0 sm:space-x-2 mt-4 sm:mt-0 order-2 md:order-3">
-            <span className="arabic-text text-3xl text-gray-800 dark:text-gray-200">
-              {surah.surahInfo.name}
-            </span>
-            <div className="flex gap-2 mt-2">
-              <Badge
-                variant="default"
-                className="text-sm font-semibold px-3 py-1"
-              >
-                Ayahs {surah.surahInfo.numberOfAyahs}
-              </Badge>
-              <Badge
-                variant="secondary"
-                className="text-sm font-semibold px-3 py-1"
-              >
-                {surah.surahInfo.revelationType}
-              </Badge>
-            </div>
-          </ItemActions>
-
-          <div className="order-3 md:order-2">
-            <Bismillah
-              surahName={surah.surahInfo.englishName}
-              classNameParent="mt-0 mb-0 px-0"
-              classNameArabic="text-sm md:text-xl"
-              classNameEnglish="text-xs md:text-lg"
-            />
-          </div>
-        </Item>
-      </div>
+      {/* Header */}
+      <SurahHeader surah={surah.surahInfo} />
 
       {/* Verse List - without Collapsible, more modern look */}
       <div className="space-y-6">
@@ -183,7 +118,7 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-5xl text-right leading-relaxed text-gray-900 dark:text-gray-100 arabic-text">
+              <p className="text-4xl text-right leading-relaxed text-gray-900 dark:text-gray-100 arabic-text">
                 {ayah.text}{" "}
                 <span className="text-sm bg-primary text-primary-foreground rounded-full px-2 py-1">
                   ۝{toArabicNumerals(ayah.numberInSurah)}
