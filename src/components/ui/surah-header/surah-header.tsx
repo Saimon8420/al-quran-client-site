@@ -17,7 +17,7 @@ interface SurahHeaderProps {
 
 const SurahHeader = ({ surah }: SurahHeaderProps) => {
   return (
-    <div className="bg-card rounded-lg p-2 shadow-sm mb-6">
+    <div className="bg-card rounded-lg p-0 shadow-sm mb-6">
       <Item
         variant="outline"
         className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-lg p-2"
