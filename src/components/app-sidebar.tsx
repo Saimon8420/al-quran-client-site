@@ -22,7 +22,9 @@ import SettingDefault from "./features/settings";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTab } from "./redux/slices/metaSlice";
 import type { RootState } from "@/app/store";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+
+import quran from "@/assets/images/quran_icon.png";
 
 const navItems = [
   {
@@ -46,11 +48,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const isVisibleSetting =
     location.pathname.includes("/surah") ||
-    location.pathname.includes("/sajda");
+    location.pathname.includes("/sajda") ||
+    location.pathname.includes("/ruku");
+
+  const navigate = useNavigate();
 
   return (
     <Sidebar {...props}>
-      <SidebarHeader className="border-b h-16"></SidebarHeader>
+      <SidebarHeader className="border-b h-16">
+        <img
+          src={quran}
+          alt="quran"
+          className="w-10 h-10 dark:invert my-auto cursor-pointer"
+          onClick={() => navigate("/")}
+        />
+      </SidebarHeader>
       <SidebarContent className="gap-0">
         <SidebarMenu>
           <SidebarMenuItem>

@@ -9,7 +9,7 @@ import type {
 
 interface DataProps {
   data: MergedAyah[] | undefined;
-  surahNumber: number;
+  surahNumber?: number;
 }
 
 // Dynamically remove "Bismillah" if it appears
@@ -29,6 +29,20 @@ export const cleanedData = ({ data, surahNumber }: DataProps) => {
       text3: item.text.replace(bismillahPattern, "").trim(),
     };
   });
+};
+
+// Dynamically remove "Bismillah" if it appears, when the data is not an array
+export const cleanedDataWithoutArrayResponse = (
+  data: string,
+  surahNumber: number | undefined,
+  verse: number
+) => {
+  if (surahNumber === 1 || verse !== 1) {
+    return data;
+  }
+  const makingPattern = data.split(" ");
+  const bismillahPattern = `${makingPattern[0]} ${makingPattern[1]} ${makingPattern[2]} ${makingPattern[3]}`;
+  return data.replace(bismillahPattern, "").trim();
 };
 
 export const transFormFullSurahResponseData = (data: SurahDetail) => {

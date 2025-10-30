@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/item";
 import type { SectionReference } from "@/components/redux/slices/metaSlice";
 import RenderRevelationImage from "../common/RenderRevelationImage";
+import { useNavigate } from "react-router";
 
 const RukusOverView = () => {
   const { rukus, surahs } = useSelector((state: RootState) => state.meta);
@@ -30,6 +31,8 @@ const RukusOverView = () => {
     return nameMatch || numberMatch;
   };
 
+  const navigate = useNavigate();
+
   const renderItem = (ruku: SectionReference, index: number) => {
     const surah = surahs.references.find((s) => s.number === ruku.surah);
     if (!surah) return null;
@@ -39,6 +42,7 @@ const RukusOverView = () => {
         key={index}
         variant="outline"
         className="flex items-center justify-between gap-4"
+        onClick={() => navigate(`ruku/${ruku.surah}/${ruku.ayah}`)}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia
