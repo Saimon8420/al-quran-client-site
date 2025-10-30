@@ -11,9 +11,11 @@ import {
 } from "@/components/ui/item";
 import type { SectionReference } from "@/components/redux/slices/metaSlice";
 import RenderRevelationImage from "../common/RenderRevelationImage";
+import { useNavigate } from "react-router";
 
 const PagesOverView = () => {
   const { pages, surahs } = useSelector((state: RootState) => state.meta);
+  const navigate = useNavigate();
 
   const filterFn = (page: SectionReference, searchTerm: string) => {
     const surah = surahs.references.find((s) => s.number === page.surah);
@@ -34,11 +36,16 @@ const PagesOverView = () => {
     const surah = surahs.references.find((s) => s.number === page.surah);
     if (!surah) return null;
 
+    const handlePageClick = () => {
+      navigate(`/page/${index + 1}`);
+    };
+
     return (
       <Item
         key={index}
         variant="outline"
-        className="flex items-center justify-between gap-4"
+        className="flex items-center justify-between gap-4 cursor-pointer"
+        onClick={handlePageClick}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia

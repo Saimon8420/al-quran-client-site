@@ -7,11 +7,13 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { toast } from "sonner";
 import SajdaView from "@/components/features/sajda";
+import CustomPaginate from "@/components/ui/custom-paginate/pagination-control";
 
 const SajdaPage = () => {
   const { surah, ayah } = useParams();
 
   const editions = useSelector((state: RootState) => state?.edition.userSelect);
+  const sajdas = useSelector((state: RootState) => state.meta.sajdas);
 
   const isInvalidSurah = isNaN(Number(surah));
 
@@ -55,8 +57,13 @@ const SajdaPage = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 flex flex-col justify-between">
       <SajdaView data={data} />
+
+      {/* Pagination */}
+      <div className="mt-10">
+        <CustomPaginate references={sajdas.references} path="sajda" />
+      </div>
     </div>
   );
 };

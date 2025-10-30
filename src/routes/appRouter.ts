@@ -4,6 +4,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import RukuPage from "@/pages/RukuPage";
 import SajdaPage from "@/pages/SajdaPage";
 import SurahPage from "@/pages/SurahPage";
+import PagesPage from "@/pages/PagesPage";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
       { path: "surah/:surah", Component: SurahPage },
       { path: "sajda/:surah/:ayah", Component: SajdaPage },
       { path: "ruku/:surah/:ayah", Component: RukuPage },
+      { path: "page/:page", Component: PagesPage },
       { path: "*", Component: NotFoundPage },
     ],
   },

@@ -1,8 +1,20 @@
 import { quranBaseApi } from "./baseApi";
+import type { Ayah } from "./surahsApi";
 
 interface Query {
   number: number;
   edition?: string;
+}
+export interface PageResponse {
+  ayahs: Ayah[];
+  edition: object;
+  number: number;
+  surahs: object;
+}
+interface Response {
+  code: number;
+  status: string;
+  data: PageResponse;
 }
 
 export const quranSectionsApi = quranBaseApi.injectEndpoints({
@@ -10,7 +22,7 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     // get a juz
     getJuz: builder.query<unknown, Query>({
       query: (data: Query) => {
-        if (data.number <= 1 || data.number >= 30) {
+        if (data.number < 1 && data.number > 30) {
           throw new Error("Juz number must be between 1 and 30");
         }
         return {
@@ -22,7 +34,7 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     // get a manzil
     getManzil: builder.query<unknown, Query>({
       query: (data: Query) => {
-        if (data.number <= 1 || data.number >= 7) {
+        if (data.number < 1 || data.number > 7) {
           throw new Error("Manzil number must be between 1 and 7");
         }
         return {
@@ -34,7 +46,7 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     // get a ruku
     getRuku: builder.query<unknown, Query>({
       query: (data: Query) => {
-        if (data.number <= 1 || data.number >= 566) {
+        if (data.number < 1 || data.number > 566) {
           throw new Error("Ruku number must be between 1 and 566");
         }
         return {
@@ -46,7 +58,7 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     // get a hizb
     getHizb: builder.query<unknown, Query>({
       query: (data: Query) => {
-        if (data.number <= 1 || data.number >= 240) {
+        if (data.number < 1 || data.number > 240) {
           throw new Error("Hizb number must be between 1 and 240");
         }
         return {
@@ -56,15 +68,14 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     }),
 
     // get a page
-    getPage: builder.query<unknown, Query>({
+    getPage: builder.query<Response, Query>({
       query: (data: Query) => {
-        if (data.number <= 1 || data.number >= 604) {
-          throw new Error("Ruku number must be between 1 and 604");
+        console.log(data);
+        if (data.number < 1 || data.number > 604) {
+          throw new Error("Page number must be between 1 and 604");
         }
         return {
-          url: `/page/${data.number}?edition=${
-            data.edition || "quran-uthmani"
-          }`,
+          url: `/page/${data.number}/${data.edition || "quran-uthmani"}`,
         };
       },
     }),

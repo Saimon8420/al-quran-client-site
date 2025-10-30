@@ -36,6 +36,7 @@ const navItems = [
       { title: "Pages", url: "pages" },
       { title: "Rukus", url: "rukus" },
       { title: "Sajdas", url: "sajdas" },
+      { title: "HizbQuarters", url: "hizbQuarters" },
     ],
   },
 ];

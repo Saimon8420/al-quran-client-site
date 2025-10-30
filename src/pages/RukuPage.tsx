@@ -1,6 +1,7 @@
 import type { RootState } from "@/app/store";
 import RukuView from "@/components/features/ruku";
 import { useGetSpecificAyahQuery } from "@/components/redux/api/surahsApi";
+import CustomPaginate from "@/components/ui/custom-paginate/pagination-control";
 import Loader from "@/components/ui/loader/loader";
 import NoDataFound from "@/components/ui/nodata/no-data-found";
 import useToast from "@/hooks/use-toast";
@@ -13,6 +14,11 @@ const RukuPage = () => {
   const { surah, ayah } = useParams();
 
   const editions = useSelector((state: RootState) => state?.edition.userSelect);
+  const rukus = useSelector((state: RootState) => state.meta.rukus);
+
+  const pages = useSelector((state: RootState) => state.meta.pages);
+
+  console.log(pages);
 
   const isInvalidSurah = isNaN(Number(surah));
 
@@ -64,8 +70,13 @@ const RukuPage = () => {
   );
 
   return (
-    <div className="p-4">
+    <div className="p-4 flex flex-col justify-between">
       <RukuView data={response} />
+
+      {/* Pagination */}
+      <div className="mt-40">
+        <CustomPaginate references={rukus.references} path="ruku" />
+      </div>
     </div>
   );
 };

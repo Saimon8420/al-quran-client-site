@@ -1,30 +1,17 @@
 import type { RootState } from "@/app/store";
 import OverView from "@/components/features/over-view";
-import { useGetMetaDataQuery } from "@/components/redux/api/metaDataApi";
 import { setCurrentTab } from "@/components/redux/slices/metaSlice";
 import Bismillah from "@/components/ui/bismillah/bismillah";
-import Loader from "@/components/ui/loader/loader";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import useToast from "@/hooks/use-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 const HomePage = () => {
-  // to get metaData
-  const { isLoading, isFetching, isError, error } = useGetMetaDataQuery();
-
-  // hooks for display toast
-  useToast({ isError, error });
-
   const tabList: string[] = useSelector(
     (state: RootState) => state.meta.tabList
   );
 
   const currentTab = useSelector((state: RootState) => state.meta.currentTab);
   const dispactch = useDispatch();
-
-  if (isLoading || isFetching || !tabList) {
-    return <Loader />;
-  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
