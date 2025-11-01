@@ -13,7 +13,7 @@ import type {
   TransformedSurahResponse,
 } from "@/components/redux/api/surahsApi";
 import { Separator } from "@/components/ui/separator";
-import { cleanedData } from "@/lib/quranUtlis";
+import { cleanedData, toArabicNumerals } from "@/lib/quranUtlis";
 import type { SerializedError } from "@reduxjs/toolkit";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import SurahHeader from "@/components/ui/surah-header/surah-header";
@@ -22,14 +22,6 @@ interface CompleteSurahViewProps {
   surah: TransformedSurahResponse | undefined;
   error?: FetchBaseQueryError | SerializedError | undefined;
 }
-
-const toArabicNumerals = (num: number) => {
-  const arabicNumerals = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-  return String(num)
-    .split("")
-    .map((digit) => arabicNumerals[parseInt(digit)])
-    .join("");
-};
 
 const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
   const getErrorMessage = () => {

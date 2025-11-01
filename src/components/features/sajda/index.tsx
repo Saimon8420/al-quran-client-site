@@ -26,10 +26,13 @@ const SajdaView = ({ data }: SajdaViewProps) => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-right arabic-text text-4xl md:text-4xl leading-loose mb-2 text-foreground border-b">
-            {data.text.split(" ").at(-1)}{" "}
-            {data.text.split(" ").slice(0, -1).join(" ")}
-          </p>
+          <div
+            dir="rtl"
+            className="flex flex-wrap text-right arabic-text text-4xl md:text-4xl leading-loose mb-2 text-foreground border-b"
+          >
+            <span>{data.text.split(" ").slice(0, -1).join(" ")}</span>
+            <span className="mr-2">{data.text.split(" ").at(-1)}</span>
+          </div>
           {data.text1 && (
             <p className="text-md text-muted-foreground py-2 border-b">
               <span className="font-semibold"></span> {data.text1}

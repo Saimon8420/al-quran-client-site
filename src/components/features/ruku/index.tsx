@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SurahHeader from "@/components/ui/surah-header/surah-header";
-import type { TransformedAyah } from "@/lib/quranUtlis";
+import { toArabicNumerals, type TransformedAyah } from "@/lib/quranUtlis";
 
 interface RukuViewProps {
   data: TransformedAyah;
@@ -26,6 +26,9 @@ const RukuView = ({ data }: RukuViewProps) => {
         <CardContent>
           <p className="text-right arabic-text text-4xl md:text-4xl leading-loose mb-2 text-foreground border-b">
             {data.text}
+            <span className="text-sm bg-primary text-primary-foreground rounded-full px-2 py-1 mr-1">
+              ۝{toArabicNumerals(data.numberInSurah)}
+            </span>
           </p>
           {data.text1 && (
             <p className="text-md text-muted-foreground py-2 border-b">

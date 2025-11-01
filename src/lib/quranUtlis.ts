@@ -135,3 +135,12 @@ export const transFormAyahResponseData = (
 
   return merged;
 };
+
+// to arabic numerals
+export const toArabicNumerals = (num: number) => {
+  const arabicNumerals = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+  return String(num)
+    .split("")
+    .map((digit) => arabicNumerals[parseInt(digit)])
+    .join("");
+};
