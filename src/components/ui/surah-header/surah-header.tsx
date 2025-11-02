@@ -22,7 +22,7 @@ const SurahHeader = ({ surah }: SurahHeaderProps) => {
         variant="outline"
         className="flex flex-row justify-between gap-4 rounded-lg p-2"
       >
-        <div className="flex flex-row items-center md:gap-4 gap-2 text-center sm:text-left order-1 justify-center ">
+        <div className="flex flex-row items-center md:gap-4 gap-2 text-center sm:text-left order-1 justify-center mx-auto md:mx-2">
           <ItemMedia
             variant="icon"
             className="flex flex-col items-center justify-center md:w-[60px] md:h-[60px] w-[25px] h-[25px] rounded-full md:text-xl text-md font-bold mx-auto"
@@ -42,8 +42,8 @@ const SurahHeader = ({ surah }: SurahHeaderProps) => {
           </ItemContent>
         </div>
 
-        <div className="order-2 md:order-3">
-          <ItemActions className="flex flex-col items-center sm:items-end space-y-0 sm:space-y-2 sm:space-x-2 gap-0">
+        <div className="order-2 md:order-3 md:mx-2 mx-auto">
+          <ItemActions className="flex flex-col items-center justify-center sm:items-end space-y-0 sm:space-y-2 sm:space-x-2 gap-0">
             <span className="arabic-text md:text-3xl text-xl text-gray-800 dark:text-gray-200">
               {surah.name}
             </span>
