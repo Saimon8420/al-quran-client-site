@@ -70,7 +70,6 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     // get a page
     getPage: builder.query<Response, Query>({
       query: (data: Query) => {
-        console.log(data);
         if (data.number < 1 || data.number > 604) {
           throw new Error("Page number must be between 1 and 604");
         }

@@ -16,10 +16,6 @@ const RukuPage = () => {
   const editions = useSelector((state: RootState) => state?.edition.userSelect);
   const rukus = useSelector((state: RootState) => state.meta.rukus);
 
-  const pages = useSelector((state: RootState) => state.meta.pages);
-
-  console.log(pages);
-
   const isInvalidSurah = isNaN(Number(surah));
 
   const isInvalidAyah = isNaN(Number(ayah));

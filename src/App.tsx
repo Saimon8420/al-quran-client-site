@@ -7,7 +7,11 @@ function App() {
   const { isLoading, isFetching } = useGetMetaDataQuery();
 
   if (isLoading || isFetching) {
-    return <Loader />;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
   }
   return (
     <AppLayout>
