@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { SearchForm } from "@/components/search-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import OverViewLayout from "./over-view-layout";
@@ -20,7 +20,9 @@ export const OverViewList = <T,>({
 }: OverViewListProps<T>) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredData = data.filter((item) => filterFn(item, searchTerm));
+  const filteredData = useMemo(() => {
+    return data.filter((item) => filterFn(item, searchTerm));
+  }, [data, searchTerm, filterFn]);
 
   return (
     <OverViewLayout>

@@ -9,7 +9,7 @@ import {
 } from "@/lib/quranUtlis";
 
 interface PageViewProps {
-  data: PageResponse;
+  data?: PageResponse;
 }
 
 const PageView = ({ data }: PageViewProps) => {

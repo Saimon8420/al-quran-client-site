@@ -22,7 +22,7 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     // get a juz
     getJuz: builder.query<unknown, Query>({
       query: (data: Query) => {
-        if (data.number < 1 && data.number > 30) {
+        if (data.number < 1 || data.number > 30) {
           throw new Error("Juz number must be between 1 and 30");
         }
         return {
@@ -38,7 +38,7 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
           throw new Error("Manzil number must be between 1 and 7");
         }
         return {
-          url: `/manzil/${data.number}?edition=${data.edition || "en.sahih"}`,
+          url: `/manzil/${data.number}/${data.edition || "en.sahih"}`,
         };
       },
     }),

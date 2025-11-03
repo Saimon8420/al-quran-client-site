@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import type { SerializedError } from "@reduxjs/toolkit";
 
-interface toastPropses {
+interface ToastProps {
   isError?: boolean;
   isSuccess?: boolean;
   error?: FetchBaseQueryError | SerializedError;
@@ -11,43 +11,61 @@ interface toastPropses {
     status: string;
     code: number;
   };
+  isLoading?: boolean;
+  isFetching?: boolean;
 }
 
-const useToast = (propses: toastPropses) => {
+const useToast = (props: ToastProps) => {
+  const { isError, isSuccess, data, error, isLoading, isFetching } = props;
+
   const [successToastShown, setSuccessToastShown] = useState(false);
-  const { isError, isSuccess, data, error } = propses;
-  return useEffect(() => {
+  const [loadingToastId, setLoadingToastId] = useState<string | number | null>(
+    null
+  );
+
+  useEffect(() => {
+    // Handle Loading Toast (only show when actively loading)
+    if ((isLoading || isFetching) && !isError && !isSuccess) {
+      if (!loadingToastId) {
+        const id = toast.loading("Loading...");
+        setLoadingToastId(id);
+      }
+    } else if (loadingToastId) {
+      toast.dismiss(loadingToastId);
+      setLoadingToastId(null);
+    }
+
+    // Handle Error Toast
     if (isError && error) {
       let description = "Something went wrong";
       if ("status" in error) {
-        // FetchBaseQueryError
-        const errorData = error.data as {
-          message: string | unknown;
-        };
-        if (errorData && typeof errorData.message === "string") {
-          description = errorData.message;
-        } else {
-          description = `Error: ${error.status}`;
-        }
-      } else if (error.message) {
-        // SerializedError
+        const errorData = error.data as { message?: string };
+        description = errorData?.message || `Error: ${error.status}`;
+      } else if ("message" in error && error.message) {
         description = error.message;
       }
-      toast.error("Error", {
-        description,
-        closeButton: true,
-        duration: 3000,
-      });
+      toast.error("Error", { description });
+      toast.dismiss(loadingToastId!);
+      setLoadingToastId(null);
     }
+
+    // Handle Success Toast
     if (isSuccess && data && !successToastShown) {
       toast.success("Success", {
-        description: `Status : ${data.status}, Code : ${data.code}`,
-        closeButton: true,
-        duration: 3000,
+        description: `Status: ${data.status}, Code: ${data.code}`,
       });
       setSuccessToastShown(true);
     }
-  }, [isError, error, isSuccess, data, successToastShown]);
+  }, [
+    isError,
+    isSuccess,
+    data,
+    error,
+    isLoading,
+    isFetching,
+    successToastShown,
+    loadingToastId,
+  ]);
 };
 
 export default useToast;

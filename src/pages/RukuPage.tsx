@@ -8,7 +8,6 @@ import useToast from "@/hooks/use-toast";
 import { cleanedDataWithoutArrayResponse } from "@/lib/quranUtlis";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { toast } from "sonner";
 
 const RukuPage = () => {
   const { surah, ayah } = useParams();
@@ -32,25 +31,10 @@ const RukuPage = () => {
       }
     );
 
-  useToast({ isError, error });
+  useToast({ isError, error, isLoading, isFetching });
 
-  if (isInvalidSurah || isInvalidAyah) {
-    toast.error("Invalid Url", {
-      duration: 3000,
-      closeButton: true,
-    });
-    return <NoDataFound />;
-  }
-
-  let toastId: string | number = "";
-
-  if (isLoading || isFetching) {
-    toastId = toast.loading("fetching surah data...");
+  if (isLoading || (isFetching && !data && !isError)) {
     return <Loader />;
-  }
-
-  if (!isLoading || !isFetching) {
-    toast.dismiss(toastId);
   }
 
   if (!data) {

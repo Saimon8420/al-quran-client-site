@@ -7,7 +7,6 @@ import NoDataFound from "@/components/ui/nodata/no-data-found";
 import useToast from "@/hooks/use-toast";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { toast } from "sonner";
 
 const PagesPage = () => {
   const { page } = useParams();
@@ -26,25 +25,10 @@ const PagesPage = () => {
     }
   );
 
-  useToast({ isError, error });
+  useToast({ isError, error, isFetching, isLoading });
 
-  if (isInvalidPage) {
-    toast.error("Invalid Page Number", {
-      duration: 3000,
-      closeButton: true,
-    });
-    return <NoDataFound />;
-  }
-
-  let toastId: string | number = "";
-
-  if (isLoading || isFetching) {
-    toastId = toast.loading("fetching page data...");
+  if (isLoading || (isFetching && !data && !isError)) {
     return <Loader />;
-  }
-
-  if (!isLoading || !isFetching) {
-    toast.dismiss(toastId);
   }
 
   if (!data) {
@@ -53,7 +37,7 @@ const PagesPage = () => {
 
   return (
     <div className="p-4 flex flex-col justify-between">
-      <PageView data={data.data} />
+      <PageView data={data?.data} />
 
       {/* Pagination */}
       <div className="mt-10">

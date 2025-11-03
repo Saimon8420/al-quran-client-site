@@ -5,7 +5,6 @@ import NoDataFound from "@/components/ui/nodata/no-data-found";
 import useToast from "@/hooks/use-toast";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { toast } from "sonner";
 import SajdaView from "@/components/features/sajda";
 import CustomPaginate from "@/components/ui/custom-paginate/pagination-control";
 
@@ -31,25 +30,10 @@ const SajdaPage = () => {
       }
     );
 
-  useToast({ isError, error });
+  useToast({ isError, error, isLoading, isFetching });
 
-  if (isInvalidSurah || isInvalidAyah) {
-    toast.error("Invalid Url", {
-      duration: 3000,
-      closeButton: true,
-    });
-    return <NoDataFound />;
-  }
-
-  let toastId: string | number = "";
-
-  if (isLoading || isFetching) {
-    toastId = toast.loading("fetching surah data...");
+  if (isLoading || (isFetching && !data && !isError)) {
     return <Loader />;
-  }
-
-  if (!isLoading || !isFetching) {
-    toast.dismiss(toastId);
   }
 
   if (!data) {
