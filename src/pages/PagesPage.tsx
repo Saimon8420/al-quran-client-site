@@ -36,7 +36,7 @@ const PagesPage = () => {
   }
 
   return (
-    <div className="p-4 flex flex-col justify-between">
+    <div className="md:p-4 p-0 flex flex-col justify-between">
       <PageView data={data?.data} />
 
       {/* Pagination */}

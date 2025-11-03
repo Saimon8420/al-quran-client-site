@@ -88,7 +88,7 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
   };
 
   return (
-    <div className="p-4">
+    <div className="md:p-4 p-0">
       {/* Header */}
       <SurahHeader surah={surah.surahInfo} />
 

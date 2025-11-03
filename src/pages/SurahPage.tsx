@@ -1,6 +1,7 @@
 import type { RootState } from "@/app/store";
 import CompleteSurahView from "@/components/features/surah";
 import { useGetFullSurahsQuery } from "@/components/redux/api/surahsApi";
+import PagePaginationControl from "@/components/ui/custom-paginate/page-pagination-control";
 import Loader from "@/components/ui/loader/loader";
 import useToast from "@/hooks/use-toast";
 import { useSelector } from "react-redux";
@@ -34,8 +35,9 @@ const SurahPage = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col justify-between gap-4">
       <CompleteSurahView surah={surahData} error={error} />
+      <PagePaginationControl totalPages={114} path="surah" />
     </div>
   );
 };

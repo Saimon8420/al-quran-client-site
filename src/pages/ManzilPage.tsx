@@ -1,4 +1,6 @@
+import ManzilView from "@/components/features/manzil";
 import { useGetManzilQuery } from "@/components/redux/api/quranSectionsApi";
+import PagePaginationControl from "@/components/ui/custom-paginate/page-pagination-control";
 import Loader from "@/components/ui/loader/loader";
 import NoDataFound from "@/components/ui/nodata/no-data-found";
 import useToast from "@/hooks/use-toast";
@@ -24,12 +26,16 @@ const ManzilPage = () => {
     return <Loader />;
   }
 
-  if (!data && !isLoading && !isFetching) {
+  if (!data) {
     return <NoDataFound />;
   }
 
-  console.log(data);
-  return <div>Manzil ID: {id}</div>;
+  return (
+    <div className="p-4 flex flex-col justify-between">
+      <ManzilView data={data?.data} />
+      <PagePaginationControl totalPages={7} path="manzil" />
+    </div>
+  );
 };
 
 export default ManzilPage;

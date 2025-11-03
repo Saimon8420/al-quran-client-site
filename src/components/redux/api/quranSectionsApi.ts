@@ -32,7 +32,7 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     }),
 
     // get a manzil
-    getManzil: builder.query<unknown, Query>({
+    getManzil: builder.query<Response, Query>({
       query: (data: Query) => {
         if (data.number < 1 || data.number > 7) {
           throw new Error("Manzil number must be between 1 and 7");
