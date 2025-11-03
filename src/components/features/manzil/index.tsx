@@ -25,8 +25,6 @@ interface ProcessDataAyah {
 }
 
 const ManzilView = ({ data }: ManzilViewProps) => {
-  console.log("Manzil data:", data);
-
   // to get surah header
   const surahs = Object.values(data.surahs);
 
@@ -42,8 +40,6 @@ const ManzilView = ({ data }: ManzilViewProps) => {
       edition: data.edition as Editions,
     };
   });
-
-  console.log("Processed Manzil data:", processedData);
 
   return (
     <div className="flex flex-col gap-8">
