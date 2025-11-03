@@ -3,6 +3,7 @@ import CompleteSurahView from "@/components/features/surah";
 import { useGetFullSurahsQuery } from "@/components/redux/api/surahsApi";
 import PagePaginationControl from "@/components/ui/custom-paginate/page-pagination-control";
 import Loader from "@/components/ui/loader/loader";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import useToast from "@/hooks/use-toast";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -35,8 +36,10 @@ const SurahPage = () => {
   }
 
   return (
-    <div className="flex flex-col justify-between gap-4">
-      <CompleteSurahView surah={surahData} error={error} />
+    <div className="min-h-fit overflow-hidden md:p-4 p-0 flex flex-col justify-between gap-6">
+      <ScrollArea className="gap-4 h-[600px] md:h-[700px] border rounded-md p-1">
+        <CompleteSurahView surah={surahData} error={error} />
+      </ScrollArea>
       <PagePaginationControl totalPages={114} path="surah" />
     </div>
   );
