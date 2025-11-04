@@ -20,13 +20,13 @@ interface Response {
 export const quranSectionsApi = quranBaseApi.injectEndpoints({
   endpoints: (builder) => ({
     // get a juz
-    getJuz: builder.query<unknown, Query>({
+    getJuz: builder.query<Response, Query>({
       query: (data: Query) => {
         if (data.number < 1 || data.number > 30) {
           throw new Error("Juz number must be between 1 and 30");
         }
         return {
-          url: `/juz/${data.number}?edition=${data.edition || "en.sahih"}`,
+          url: `/juz/${data.number}/${data.edition || "quran-uthmani"}`,
         };
       },
     }),

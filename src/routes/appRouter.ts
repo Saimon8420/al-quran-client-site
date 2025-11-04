@@ -8,6 +8,7 @@ import PagesPage from "@/pages/PagesPage";
 import { createBrowserRouter } from "react-router";
 import ManzilPage from "@/pages/ManzilPage";
 import HizbPage from "@/pages/HizbPage";
+import JuzPage from "@/pages/JuzPage";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       { path: "page/:id", Component: PagesPage },
       { path: "manzil/:id", Component: ManzilPage },
       { path: "hizb/:id", Component: HizbPage },
+      { path: "juz/:id", Component: JuzPage },
       { path: "*", Component: NotFoundPage },
     ],
   },

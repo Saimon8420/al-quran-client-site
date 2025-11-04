@@ -11,9 +11,12 @@ import {
 } from "@/components/ui/item";
 import type { SectionReference } from "@/components/redux/slices/metaSlice";
 import RenderRevelationImage from "../common/RenderRevelationImage";
+import { useNavigate } from "react-router";
 
 const JuzsOverView = () => {
   const { juzs, surahs } = useSelector((state: RootState) => state.meta);
+
+  const navigate = useNavigate();
 
   const filterFn = (juz: SectionReference, searchTerm: string) => {
     const surah = surahs.references.find((s) => s.number === juz.surah);
@@ -39,6 +42,7 @@ const JuzsOverView = () => {
         key={index}
         variant="outline"
         className="flex items-center justify-between gap-4"
+        onClick={() => navigate(`juz/${index + 1}`)}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia
