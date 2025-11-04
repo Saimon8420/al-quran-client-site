@@ -1,20 +1,20 @@
 import type { Editions } from "@/components/redux/api/metaDataApi";
-import type { PageResponse as ManzilResponse } from "@/components/redux/api/quranSectionsApi";
 import type { Ayah, SurahSummary } from "@/components/redux/api/surahsApi";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import type { PageResponse as HizbResponse } from "@/components/redux/api/quranSectionsApi";
 import SurahHeader from "@/components/ui/surah-header/surah-header";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   cleanedDataWithoutArrayResponse,
   toArabicNumerals,
 } from "@/lib/quranUtlis";
+import { Separator } from "@/components/ui/separator";
 
-interface ManzilViewProps {
-  data: ManzilResponse;
+interface HizbViewProps {
+  data: HizbResponse;
 }
 
-interface ManzilAyah extends Ayah {
+interface HizbAyah extends Ayah {
   surah: SurahSummary;
 }
 
@@ -24,14 +24,14 @@ interface ProcessDataAyah {
   surah: SurahSummary;
 }
 
-const ManzilView = ({ data }: ManzilViewProps) => {
+const HizbView = ({ data }: HizbViewProps) => {
   // to get surah header
   const surahs = Object.values(data.surahs);
 
   // process data to group ayahs by surah
   const processedData: ProcessDataAyah[] = surahs.map((surah) => {
-    const newData = (data.ayahs as ManzilAyah[])
-      .filter((ayah: ManzilAyah) => ayah.surah.number === surah.number)
+    const newData = (data.ayahs as HizbAyah[])
+      .filter((ayah: HizbAyah) => ayah.surah.number === surah.number)
       .map(({ surah, ...rest }) => rest);
 
     return {
@@ -40,7 +40,6 @@ const ManzilView = ({ data }: ManzilViewProps) => {
       edition: data.edition as Editions,
     };
   });
-
   return (
     <div className="flex flex-col gap-8">
       {processedData.map((each) => {
@@ -98,4 +97,4 @@ const ManzilView = ({ data }: ManzilViewProps) => {
   );
 };
 
-export default ManzilView;
+export default HizbView;

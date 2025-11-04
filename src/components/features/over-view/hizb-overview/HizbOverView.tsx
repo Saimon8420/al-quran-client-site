@@ -11,11 +11,14 @@ import {
 } from "@/components/ui/item";
 import type { SectionReference } from "@/components/redux/slices/metaSlice";
 import RenderRevelationImage from "../common/RenderRevelationImage";
+import { useNavigate } from "react-router";
 
 const HizbOverView = () => {
   const { hizbQuarters, surahs } = useSelector(
     (state: RootState) => state.meta
   );
+
+  const navigate = useNavigate();
 
   const filterFn = (hizb: SectionReference, searchTerm: string) => {
     const surah = surahs.references.find((s) => s.number === hizb.surah);
@@ -41,6 +44,7 @@ const HizbOverView = () => {
         key={index}
         variant="outline"
         className="flex items-center justify-between gap-4"
+        onClick={() => navigate(`hizb/${index + 1}`)}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia

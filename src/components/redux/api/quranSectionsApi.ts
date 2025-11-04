@@ -56,13 +56,13 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
     }),
 
     // get a hizb
-    getHizb: builder.query<unknown, Query>({
+    getHizb: builder.query<Response, Query>({
       query: (data: Query) => {
         if (data.number < 1 || data.number > 240) {
           throw new Error("Hizb number must be between 1 and 240");
         }
         return {
-          url: `/hizb/${data.number}?edition=${data.edition || "en.sahih"}`,
+          url: `/hizbQuarter/${data.number}/${data.edition || "quran-uthmani"}`,
         };
       },
     }),
