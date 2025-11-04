@@ -43,9 +43,9 @@ const ManzilView = ({ data }: ManzilViewProps) => {
 
   return (
     <div className="flex flex-col gap-8">
-      {processedData.map((each) => {
+      {processedData.map((each, index) => {
         return (
-          <div className="md:p-4 p-1 border rounded-md">
+          <div className="md:p-4 p-1 border rounded-md" key={index}>
             <SurahHeader surah={each.surah} />
             <div className="flex flex-col">
               <Card className="group hover:shadow-lg transition-shadow duration-300 ease-in-out">

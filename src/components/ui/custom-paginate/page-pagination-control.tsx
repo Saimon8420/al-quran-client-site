@@ -22,7 +22,7 @@ const PagePaginationControl = ({
   path,
   siblingCount,
 }: PagePaginationControlProps) => {
-  const { page: pageNumber } = useParams();
+  const { id: pageNumber } = useParams();
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(Number(pageNumber) || 1);

@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
       { path: "surah/:surah", Component: SurahPage },
       { path: "sajda/:surah/:ayah", Component: SajdaPage },
       { path: "ruku/:surah/:ayah", Component: RukuPage },
-      { path: "page/:page", Component: PagesPage },
+      { path: "page/:id", Component: PagesPage },
       { path: "manzil/:id", Component: ManzilPage },
       { path: "hizb/:id", Component: HizbPage },
       { path: "*", Component: NotFoundPage },
