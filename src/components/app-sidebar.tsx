@@ -24,7 +24,7 @@ import { setCurrentTab } from "./redux/slices/metaSlice";
 import type { RootState } from "@/app/store";
 import { useLocation, useNavigate } from "react-router";
 
-import quran from "@/assets/images/quran_icon.png";
+import quran from "@/assets/images/quran_bg.png";
 
 const navItems = [
   {
