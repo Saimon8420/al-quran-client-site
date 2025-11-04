@@ -15,7 +15,7 @@ interface PageViewProps {
 const PageView = ({ data }: PageViewProps) => {
   if (!data) return null;
 
-  const { ayahs, surahs } = data;
+  const { ayahs, surahs, edition } = data;
 
   // Assuming surahs is an object with surah numbers as keys
   const surahArray = Object.values(surahs);
@@ -26,7 +26,7 @@ const PageView = ({ data }: PageViewProps) => {
       <div className="p-4 border rounded-md flex flex-col gap-2">
         <Card className="group hover:shadow-lg transition-shadow duration-300 ease-in-out">
           {ayahs.map((ayah, index) => (
-            <div>
+            <div key={index}>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <Badge variant={"outline"} className="p-1">
@@ -34,17 +34,29 @@ const PageView = ({ data }: PageViewProps) => {
                   </Badge>
                 </div>
               </CardHeader>
-              <CardContent>
-                <p className="text-4xl text-right leading-relaxed text-gray-900 dark:text-gray-100 arabic-text">
-                  {cleanedDataWithoutArrayResponse(
-                    ayah.text,
-                    ayah.number,
-                    ayah.numberInSurah
-                  )}
-                  <span className="text-sm bg-primary text-primary-foreground rounded-full px-2 py-1 mr-1">
-                    ۝{toArabicNumerals(ayah.numberInSurah)}
-                  </span>
-                </p>
+              <CardContent className="px-2 md:px-4 lg:px-6">
+                {/* if text is arabic */}
+                {edition.language === "ar" ? (
+                  <p
+                    className={`text-4xl text-right leading-relaxed text-gray-900 dark:text-gray-100 arabic-text text-wrap`}
+                  >
+                    {cleanedDataWithoutArrayResponse(
+                      ayah.text,
+                      ayah.number,
+                      ayah.numberInSurah
+                    )}
+                    <span className="text-sm bg-primary text-primary-foreground rounded-full px-2 py-1 mr-1">
+                      ۝{toArabicNumerals(ayah.numberInSurah)}
+                    </span>
+                  </p>
+                ) : (
+                  // if not arabic text
+                  <p
+                    className={`md:text-2xl text-md leading-relaxed text-gray-900 dark:text-gray-100 text-wrap`}
+                  >
+                    {ayah.text} [{ayah.numberInSurah}]
+                  </p>
+                )}
               </CardContent>
 
               {/* Separator (hidden for last ayah) */}

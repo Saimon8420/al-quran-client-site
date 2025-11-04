@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import {
   Select,
   SelectContent,
@@ -9,31 +8,30 @@ import {
   SelectValue,
 } from "../select";
 import type { ReactNode } from "react";
-import { setUserSelect } from "@/components/redux/slices/editionSlice";
-import type { EditionState } from "@/components/redux/slices/editionSlice";
 
-interface CustomSelectProps<T> {
+interface CustomSelectProps<T, K extends string> {
   data: T[];
   placeholder: string;
   label: string;
   renderOption: (item: T) => ReactNode;
-  type: keyof EditionState["userSelect"];
+  type: K;
   defaultValue: string;
+  onChange?: (value: string, type: K) => void;
 }
 
-const CustomSelect = <T extends { identifier: string }>({
+const CustomSelect = <T extends { identifier: string }, K extends string>({
   data,
   placeholder,
   label,
   renderOption,
   type,
   defaultValue,
-}: CustomSelectProps<T>) => {
-  const dispatch = useDispatch();
+  onChange,
+}: CustomSelectProps<T, K>) => {
   return (
     <div>
       <Select
-        onValueChange={(value) => dispatch(setUserSelect({ value, type }))}
+        onValueChange={(value) => onChange?.(value, type)}
         defaultValue={defaultValue}
       >
         <SelectTrigger className="w-full">

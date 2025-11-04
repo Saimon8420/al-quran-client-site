@@ -9,8 +9,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 const PagesPage = () => {
-  const { page } = useParams();
-  const editions = useSelector((state: RootState) => state?.edition.userSelect);
+  const { id: page } = useParams();
+  const editions = useSelector(
+    (state: RootState) => state?.edition.userSingleSelect
+  );
   const pagesMeta = useSelector((state: RootState) => state.meta.pages);
 
   const isInvalidPage = isNaN(Number(page));
@@ -18,7 +20,7 @@ const PagesPage = () => {
   const { data, isLoading, isFetching, error, isError } = useGetPageQuery(
     {
       number: Number(page),
-      edition: `${editions.arabicText}`,
+      edition: `${editions.text}`,
     },
     {
       skip: isInvalidPage,

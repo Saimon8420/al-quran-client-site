@@ -12,6 +12,9 @@ export interface EditionState {
     translation2: string;
     audio: string;
   };
+  userSingleSelect: {
+    text: string;
+  };
 }
 
 const editionState: EditionState = {
@@ -19,11 +22,16 @@ const editionState: EditionState = {
   tafsirTextFormat: [],
   translationTextFormat: [],
   arabicTextFormat: [],
+  // for surahs,sajdas,rukus
   userSelect: {
     arabicText: "quran-simple",
     translation1: "en.sahih",
     translation2: "bn.bengali",
     audio: "ar.abdurrahmaansudais",
+  },
+  // for pages,manzils,juzs,hizbs
+  userSingleSelect: {
+    text: "quran-simple",
   },
 };
 
@@ -46,6 +54,7 @@ export const editionSlice = createSlice({
       state.arabicTextFormat = action.payload.arabicTextFormat;
     },
 
+    // for surahs,sajdas,rukus
     setUserSelect: (
       state,
       action: PayloadAction<{
@@ -55,9 +64,21 @@ export const editionSlice = createSlice({
     ) => {
       state.userSelect[action.payload.type] = action.payload.value;
     },
+
+    // for pages,manzils,juzs,hizbs
+    setUserSingleSelect: (
+      state,
+      action: PayloadAction<{
+        type: keyof EditionState["userSingleSelect"];
+        value: string;
+      }>
+    ) => {
+      state.userSingleSelect[action.payload.type] = action.payload.value;
+    },
   },
 });
 
-export const { setEditionData, setUserSelect } = editionSlice.actions;
+export const { setEditionData, setUserSelect, setUserSingleSelect } =
+  editionSlice.actions;
 
 export default editionSlice.reducer;

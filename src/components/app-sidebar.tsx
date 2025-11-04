@@ -47,10 +47,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const location = useLocation();
 
-  const isVisibleSetting =
-    location.pathname.includes("/surah") ||
-    location.pathname.includes("/sajda") ||
-    location.pathname.includes("/ruku");
+  const isVisibleHome =
+    location.pathname.includes("/home") || location.pathname === "/";
+
+  const userSingleSelect =
+    location.pathname.includes("/juz") ||
+    location.pathname.includes("/hizb") ||
+    location.pathname.includes("/page") ||
+    location.pathname.includes("/manzil");
 
   const navigate = useNavigate();
 
@@ -74,7 +78,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
 
-        <div className={`${location.pathname === "/" ? "block" : "hidden"}`}>
+        <div className={`${isVisibleHome ? "block" : "hidden"}`}>
           {navItems.map((item) => (
             <Collapsible
               key={item.title}
@@ -115,7 +119,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ))}
         </div>
 
-        <div className={`${isVisibleSetting ? "block" : "hidden"}`}>
+        <div className={`${!isVisibleHome ? "block" : "hidden"}`}>
           <Collapsible className="group/collapsible" defaultOpen>
             <SidebarGroup>
               <SidebarGroupLabel
@@ -130,7 +134,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
               <CollapsibleContent>
                 <SidebarGroupContent>
-                  <SettingDefault />
+                  <SettingDefault isSingleSelect={userSingleSelect} />
                 </SidebarGroupContent>
               </CollapsibleContent>
             </SidebarGroup>

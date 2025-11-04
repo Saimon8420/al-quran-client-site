@@ -1,4 +1,5 @@
 import { quranBaseApi } from "./baseApi";
+import type { Editions } from "./metaDataApi";
 import type { Ayah } from "./surahsApi";
 
 interface Query {
@@ -7,7 +8,7 @@ interface Query {
 }
 export interface PageResponse {
   ayahs: Ayah[];
-  edition: object;
+  edition: Editions;
   number: number;
   surahs: object;
 }

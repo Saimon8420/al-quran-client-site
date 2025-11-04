@@ -1,3 +1,4 @@
+import type { RootState } from "@/app/store";
 import HizbView from "@/components/features/hizb";
 import { useGetHizbQuery } from "@/components/redux/api/quranSectionsApi";
 import PagePaginationControl from "@/components/ui/custom-paginate/page-pagination-control";
@@ -5,13 +6,19 @@ import Loader from "@/components/ui/loader/loader";
 import NoDataFound from "@/components/ui/nodata/no-data-found";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useToast from "@/hooks/use-toast";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 const HizbPage = () => {
   const { id } = useParams();
+
+  const editions = useSelector(
+    (state: RootState) => state?.edition.userSingleSelect
+  );
+
   const { data, isLoading, isFetching, isError, error, isSuccess } =
     useGetHizbQuery(
-      { number: Number(id) },
+      { number: Number(id), edition: `${editions.text}` },
       {
         skip: !Number(id),
       }
