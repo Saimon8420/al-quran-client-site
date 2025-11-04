@@ -43,18 +43,6 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
       },
     }),
 
-    // get a ruku
-    getRuku: builder.query<unknown, Query>({
-      query: (data: Query) => {
-        if (data.number < 1 || data.number > 566) {
-          throw new Error("Ruku number must be between 1 and 566");
-        }
-        return {
-          url: `/ruku/${data.number}?edition=${data.edition || "en.sahih"}`,
-        };
-      },
-    }),
-
     // get a hizb
     getHizb: builder.query<Response, Query>({
       query: (data: Query) => {
@@ -78,15 +66,6 @@ export const quranSectionsApi = quranBaseApi.injectEndpoints({
         };
       },
     }),
-
-    // get all 15 sajda verses
-    getSajda: builder.query<unknown, Pick<Query, "edition">>({
-      query: (data: Pick<Query, "edition">) => {
-        return {
-          url: `/sajda?edition=${data.edition || "en.sahih"}`,
-        };
-      },
-    }),
   }),
 });
 
@@ -94,7 +73,5 @@ export const {
   useGetJuzQuery,
   useGetHizbQuery,
   useGetManzilQuery,
-  useGetRukuQuery,
   useGetPageQuery,
-  useGetSajdaQuery,
 } = quranSectionsApi;
