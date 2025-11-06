@@ -1,22 +1,16 @@
 import { AlertTriangle } from "lucide-react";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import type {
-  MergedAyah,
-  TransformedSurahResponse,
-} from "@/components/redux/api/surahsApi";
-import { Separator } from "@/components/ui/separator";
-import { cleanedData, toArabicNumerals } from "@/lib/quranUtlis";
+import type { TransformedSurahResponse } from "@/components/redux/api/surahsApi";
+import { cleanedData } from "@/lib/quranUtlis";
 import type { SerializedError } from "@reduxjs/toolkit";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import SurahHeader from "@/components/ui/surah-header/surah-header";
+import MultipleTranslationView from "@/components/ui/multiple-translation-view/multiple-translation-view";
 
 interface CompleteSurahViewProps {
   surah: TransformedSurahResponse | undefined;
@@ -68,25 +62,6 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
     );
   }
 
-  const renderAyahTranslations = (ayah: MergedAyah) => {
-    const translationKeys = Object.keys(ayah).filter((key) =>
-      key.startsWith("text")
-    );
-    // remove 'text' as it is the main one
-    const otherTranslations = translationKeys.filter(
-      (key) => key !== "text" && key !== "text3"
-    );
-
-    return otherTranslations.map((key) => (
-      <div key={key} className="mt-2">
-        <p className="text-md text-muted-foreground py-2">
-          {String(ayah[key])}
-        </p>
-        <Separator className="my-1" />
-      </div>
-    ));
-  };
-
   return (
     <div className="md:p-4 p-0">
       {/* Header */}
@@ -98,36 +73,7 @@ const CompleteSurahView = ({ surah, error }: CompleteSurahViewProps) => {
           data: surah?.ayahs,
           surahNumber: surah.surahInfo.number,
         }).map((ayah) => (
-          <Card
-            key={ayah.numberInSurah}
-            className="group hover:shadow-lg transition-shadow duration-300 ease-in-out"
-          >
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <Badge variant={"outline"} className="p-1">
-                  Verse {ayah.numberInSurah}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-4xl text-right leading-relaxed text-gray-900 dark:text-gray-100 arabic-text">
-                {ayah.text}{" "}
-                <span className="text-sm bg-primary text-primary-foreground rounded-full px-2 py-1">
-                  ۝{toArabicNumerals(ayah.numberInSurah)}
-                </span>
-              </p>
-              <div className="border-t mt-4 space-y-2">
-                {renderAyahTranslations(ayah)}
-              </div>
-            </CardContent>
-            {ayah.audio && (
-              <CardFooter className="pt-0">
-                <audio controls src={ayah.audio} className="w-full">
-                  Your browser does not support the audio element.
-                </audio>
-              </CardFooter>
-            )}
-          </Card>
+          <MultipleTranslationView key={ayah.number} data={ayah} />
         ))}
       </div>
     </div>
