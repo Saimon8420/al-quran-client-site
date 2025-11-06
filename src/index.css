@@ -19,10 +19,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-body {
+/* body {
   font-family: Calibri, sans-serif;
-  font-weight: 800;
-}
+} */
 
 /* ================================
    🎨 Arabic Font Classes
@@ -73,6 +72,7 @@ body {
 
 .arabic-text {
   font-family: "Amiri", serif;
+  line-height: 2.5;
 }
 
 @custom-variant dark (&:is(.dark *));

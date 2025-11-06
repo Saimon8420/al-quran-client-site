@@ -10,6 +10,8 @@ const HomePage = () => {
     (state: RootState) => state.meta.tabList
   );
 
+  const extendedTabs = [...tabList, "search"];
+
   const currentTab = useSelector((state: RootState) => state.meta.currentTab);
   const dispactch = useDispatch();
 
@@ -25,8 +27,8 @@ const HomePage = () => {
         onValueChange={(value) => dispactch(setCurrentTab(value))}
       >
         <TabsList className="2xl:min-w-7xl xl:min-w-4xl lg:min-w-2xl md:min-w-md min-w-3xs p-2 md:gap-0 gap-2">
-          {tabList &&
-            tabList?.map((tab) => (
+          {extendedTabs &&
+            extendedTabs.map((tab) => (
               <TabsTrigger
                 key={tab}
                 value={tab}

@@ -15,6 +15,7 @@ import { useNavigate } from "react-router";
 
 const ManzilsOverView = () => {
   const { manzils, surahs } = useSelector((state: RootState) => state.meta);
+  const navigate = useNavigate();
 
   const filterFn = (manzil: SectionReference, searchTerm: string) => {
     const surah = surahs.references.find((s) => s.number === manzil.surah);
@@ -34,8 +35,6 @@ const ManzilsOverView = () => {
   const renderItem = (manzil: SectionReference, index: number) => {
     const surah = surahs.references.find((s) => s.number === manzil.surah);
     if (!surah) return null;
-
-    const navigate = useNavigate();
 
     return (
       <Item

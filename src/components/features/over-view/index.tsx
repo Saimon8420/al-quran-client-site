@@ -1,6 +1,7 @@
 import Loader from "@/components/ui/loader/loader";
 import { TabsContent } from "@/components/ui/tabs";
 import { lazy, Suspense } from "react";
+const SearchOverView = lazy(() => import("./search-overview/SearchOverView"));
 const SurahOverView = lazy(() => import("./surah-overview/SurahOverView"));
 const JuzsOverView = lazy(() => import("./juzs-overview/JuzsOverView"));
 const RukusOverView = lazy(() => import("./rukus-overview/RukusOverView"));
@@ -23,12 +24,14 @@ const tabComponents: Record<string, React.ReactNode> = {
   rukus: <RukusOverView />,
   sajdas: <SajdaOverView />,
   hizbQuarters: <HizbOverView />,
+  search: <SearchOverView />,
 };
 
 const OverView = ({ currentTab }: OverViewProps) => {
   return (
     <TabsContent value={currentTab}>
       <Suspense
+        key={currentTab}
         fallback={
           <div className="flex items-center justify-center mt-14">
             <Loader />

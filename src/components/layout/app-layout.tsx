@@ -18,6 +18,8 @@ import { ModeToggle } from "@/components/theme/mood-toggle";
 import { Toaster } from "@/components/ui/sonner";
 import { GridPattern } from "../ui/grid-pattern";
 import { Link, useLocation } from "react-router";
+import { Particles } from "../ui/particles";
+import { useTheme } from "@/hooks/use-theme";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -26,6 +28,8 @@ interface AppLayoutProps {
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
+
+  const { theme } = useTheme();
 
   return (
     <SidebarProvider>
@@ -38,7 +42,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           y={-1}
           className="absolute inset-0 h-full w-full dark:opacity-10 opacity-25"
         />
-
         <header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4 justify-between z-50">
           <div className="flex items-center h-[100%]">
             <SidebarTrigger className="-ml-1 mr-2" />
@@ -74,9 +77,17 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
           <ModeToggle />
         </header>
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-4 p-4 relative overflow-hidden">
           <Toaster />
           {children}
+          <Particles
+            className="absolute inset-0 z-0 h-[100vh] w-[100vw] pointer-events-none opacity-30"
+            quantity={100}
+            ease={80}
+            staticity={50}
+            refresh
+            color={theme === "light" ? "#262626" : "#ffffff"}
+          />
         </div>
       </SidebarInset>
     </SidebarProvider>

@@ -1,12 +1,7 @@
 import type { PageResponse } from "@/components/redux/api/quranSectionsApi";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Card } from "@/components/ui/card";
+import SingleTranslationView from "@/components/ui/single-translation-view/single-translation-view";
 import SurahHeader from "@/components/ui/surah-header/surah-header";
-import {
-  cleanedDataWithoutArrayResponse,
-  toArabicNumerals,
-} from "@/lib/quranUtlis";
 
 interface PageViewProps {
   data?: PageResponse;
@@ -26,42 +21,13 @@ const PageView = ({ data }: PageViewProps) => {
       <div className="p-4 border rounded-md flex flex-col gap-2">
         <Card className="group hover:shadow-lg transition-shadow duration-300 ease-in-out">
           {ayahs.map((ayah, index) => (
-            <div key={index}>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <Badge variant={"outline"} className="p-1">
-                    Verse {ayah.numberInSurah}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="px-2 md:px-4 lg:px-6">
-                {/* if text is arabic */}
-                {edition.language === "ar" ? (
-                  <p
-                    className={`text-4xl text-right leading-relaxed text-gray-900 dark:text-gray-100 arabic-text text-wrap`}
-                  >
-                    {cleanedDataWithoutArrayResponse(
-                      ayah.text,
-                      ayah.number,
-                      ayah.numberInSurah
-                    )}
-                    <span className="text-sm bg-primary text-primary-foreground rounded-full px-2 py-1 mr-1">
-                      ۝{toArabicNumerals(ayah.numberInSurah)}
-                    </span>
-                  </p>
-                ) : (
-                  // if not arabic text
-                  <p
-                    className={`md:text-2xl text-md leading-relaxed text-gray-900 dark:text-gray-100 text-wrap`}
-                  >
-                    {ayah.text} [{ayah.numberInSurah}]
-                  </p>
-                )}
-              </CardContent>
-
-              {/* Separator (hidden for last ayah) */}
-              {index !== ayahs.length - 1 && <Separator className="my-3" />}
-            </div>
+            <SingleTranslationView
+              translation={ayah}
+              translationLength={ayahs.length}
+              index={index}
+              edition={edition}
+              key={index}
+            />
           ))}
         </Card>
       </div>
