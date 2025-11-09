@@ -64,7 +64,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <img
           src={quran}
           alt="quran"
-          className="w-10 h-10 dark:invert my-auto cursor-pointer"
+          className="w-10 h-10 my-auto cursor-pointer"
           onClick={() => navigate("/")}
         />
       </SidebarHeader>

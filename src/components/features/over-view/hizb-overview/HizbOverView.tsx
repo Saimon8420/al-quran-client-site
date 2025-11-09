@@ -4,11 +4,14 @@ import { OverViewList } from "@/components/features/over-view/common/OverViewLis
 import type { SectionReference } from "@/components/redux/slices/metaSlice";
 import OverviewRenderItem from "@/components/ui/overview-render-item/overview-render-item";
 import { useCallback } from "react";
+import useHanldeNavigate from "@/hooks/use-handle-navigate";
 
 const HizbOverView = () => {
   const { hizbQuarters, surahs } = useSelector(
     (state: RootState) => state.meta
   );
+
+  const handleNavigate = useHanldeNavigate();
 
   const filterFn = useCallback(
     (hizb: SectionReference, searchTerm: string) => {
@@ -37,10 +40,11 @@ const HizbOverView = () => {
           path="hizb"
           key={index}
           surahs={surahs}
+          navigate={handleNavigate}
         />
       );
     },
-    [surahs]
+    [surahs, handleNavigate]
   );
 
   return (

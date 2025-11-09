@@ -4,7 +4,7 @@ import { OverViewList } from "@/components/features/over-view/common/OverViewLis
 import type { Surah } from "@/components/redux/slices/metaSlice";
 import OverviewRenderItem from "@/components/ui/overview-render-item/overview-render-item";
 import { useCallback } from "react";
-import { useNavigate } from "react-router";
+import useHanldeNavigate from "@/hooks/use-handle-navigate";
 
 const SurahOverView = () => {
   const { surahs } = useSelector((state: RootState) => state.meta);
@@ -24,14 +24,21 @@ const SurahOverView = () => {
     [surahs]
   );
 
-  const handleNavigate = (surah: Number) => {
-    const navigate = useNavigate();
-    navigate(`/surah/${surah}`);
-  };
+  const handleNavigate = useHanldeNavigate();
 
-  const renderItem = useCallback((surah: Surah) => {
-    return <OverviewRenderItem surah={surah} path="surah" key={surah.number} />;
-  }, []);
+  const renderItem = useCallback(
+    (surah: Surah) => {
+      return (
+        <OverviewRenderItem
+          surah={surah}
+          path="surah"
+          key={surah.number}
+          navigate={handleNavigate}
+        />
+      );
+    },
+    [handleNavigate]
+  );
 
   return (
     <OverViewList

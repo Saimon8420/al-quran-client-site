@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 const SurahPage = () => {
-  const { surah } = useParams();
+  const { id: surah } = useParams();
 
   const isInvalidSurah = isNaN(Number(surah));
   const editions = useSelector((state: RootState) => state?.edition.userSelect);

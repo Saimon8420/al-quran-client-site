@@ -13,14 +13,13 @@ import {
 } from "../item";
 import RenderRevelationImage from "@/components/features/over-view/common/RenderRevelationImage";
 import { Badge } from "../badge";
-import { useNavigate } from "react-router";
 
 interface OverviewRenderItemProps {
   // Define any props needed for the component
   data?: SectionReference;
   index?: number;
   surah?: Surah;
-  navigate: (surah: Number) => void;
+  navigate: (surah?: number, path?: string, ayah?: number) => void;
   path?: string;
   surahs?: { count: number; references: Surah[] };
 }
@@ -39,7 +38,7 @@ const OverviewRenderItem: React.FC<OverviewRenderItemProps> = ({
         key={surah.number}
         variant="outline"
         className="flex items-center justify-between gap-4"
-        onClick={() => navigate(surah.number)}
+        onClick={() => navigate(surah.number, path)}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia
@@ -85,7 +84,13 @@ const OverviewRenderItem: React.FC<OverviewRenderItemProps> = ({
         key={index}
         variant="outline"
         className="flex items-center justify-between gap-4"
-        onClick={() => navigate(`/${path}/${data.surah}/${data.ayah}`)}
+        onClick={() => {
+          if (path === "sajda" || path === "ruku") {
+            navigate(data.surah, path, data.ayah);
+          } else {
+            navigate(index + 1, path);
+          }
+        }}
       >
         <div className="flex flex-wrap gap-4 sm:order-1 order-2 sm:ml-0 ml-auto">
           <ItemMedia
@@ -125,7 +130,6 @@ const OverviewRenderItem: React.FC<OverviewRenderItemProps> = ({
       </Item>
     );
   }
-  return <div></div>;
 };
 
 export default React.memo(OverviewRenderItem);

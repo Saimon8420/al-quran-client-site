@@ -23,6 +23,7 @@ const PagePaginationControl = ({
   siblingCount,
 }: PagePaginationControlProps) => {
   const { id: pageNumber } = useParams();
+
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(Number(pageNumber) || 1);

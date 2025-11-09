@@ -28,6 +28,7 @@ const CustomPaginate = ({
   siblingCount,
 }: PaginationControlProps) => {
   const { surah, ayah } = useParams();
+
   const navigate = useNavigate();
 
   const totalPages = references?.length || 0;

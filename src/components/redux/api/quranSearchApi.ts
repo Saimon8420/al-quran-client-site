@@ -5,18 +5,23 @@ interface SearchQuery {
   edition?: string;
 }
 
+interface SearchResponse {
+  code: number;
+  status: string;
+  data: {
+    count: number;
+    matches: Object[];
+  };
+}
+
 export const quranSearchApi = quranBaseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // search is text editions
-    getSearchData: builder.query<unknown, SearchQuery>({
-      query: (data: SearchQuery) => {
-        return {
-          url: `/search?query=${data.query}&edition=${
-            data.edition || "en.sahih"
-          }`,
-          method: "GET",
-        };
-      },
+    getSearchData: builder.query<SearchResponse, SearchQuery>({
+      query: (data) => ({
+        url: `/search/${data.query}/all/${data.edition || "en.sahih"}`,
+        method: "GET",
+      }),
+      providesTags: ["search-text"],
     }),
   }),
 });

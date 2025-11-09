@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     Component: App,
     children: [
       { index: true, Component: HomePage },
-      { path: "surah/:surah", Component: SurahPage },
+      { path: "surah/:id", Component: SurahPage },
       { path: "sajda/:surah/:ayah", Component: SajdaPage },
       { path: "ruku/:surah/:ayah", Component: RukuPage },
       { path: "page/:id", Component: PagesPage },

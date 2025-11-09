@@ -4,9 +4,12 @@ import { OverViewList } from "@/components/features/over-view/common/OverViewLis
 import type { SectionReference } from "@/components/redux/slices/metaSlice";
 import OverviewRenderItem from "@/components/ui/overview-render-item/overview-render-item";
 import { useCallback } from "react";
+import useHanldeNavigate from "@/hooks/use-handle-navigate";
 
 const SajdaOverView = () => {
   const { sajdas, surahs } = useSelector((state: RootState) => state.meta);
+
+  const handleNavigate = useHanldeNavigate();
 
   const filterFn = useCallback(
     (sajda: SectionReference, searchTerm: string) => {
@@ -35,10 +38,11 @@ const SajdaOverView = () => {
           path="sajda"
           key={index}
           surahs={surahs}
+          navigate={handleNavigate}
         />
       );
     },
-    [surahs]
+    [surahs, handleNavigate]
   );
 
   return (
