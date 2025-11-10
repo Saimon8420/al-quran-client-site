@@ -47,8 +47,6 @@ const TodaysAyah = () => {
     if (ayahs) {
       const newAyahNumber = getRandomNumber(1, ayahs.count)
       setAyahNumber(newAyahNumber)
-      // The query will be re-triggered by the change in ayahNumber.
-      // We can also call refetch if we want to force it.
     }
   }
 
@@ -97,7 +95,12 @@ const TodaysAyah = () => {
             </p>
           </div>
         )}
-        <Button onClick={handleNewAyah} className="mt-4">
+        <Button
+          onClick={handleNewAyah}
+          className="mt-4"
+          variant={'outline'}
+          size={'sm'}
+        >
           Get New Ayah
         </Button>
       </CardContent>

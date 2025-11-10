@@ -27,6 +27,7 @@ import { useLocation, useNavigate } from 'react-router'
 import quran from '@/assets/images/quran_bg.png'
 import QuickLinks from './features/quick-links'
 import TodaysAyah from './features/todays-ayah'
+import TodaysHadith from './features/todays-hadith'
 
 const navItems = [
   {
@@ -171,7 +172,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </Collapsible>
         </div>
 
-        {/* ayah of the days */}
+        {/* ayah of the day */}
         <div className={`${isVisibleHome ? 'block' : 'hidden'}`}>
           <Collapsible className="group/collapsible" defaultOpen>
             <SidebarGroup>
@@ -188,6 +189,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <CollapsibleContent>
                 <SidebarGroupContent>
                   <TodaysAyah />
+                </SidebarGroupContent>
+              </CollapsibleContent>
+            </SidebarGroup>
+          </Collapsible>
+        </div>
+
+        {/* hadith of the day */}
+        <div className={`${isVisibleHome ? 'block' : 'hidden'}`}>
+          <Collapsible className="group/collapsible">
+            <SidebarGroup>
+              <SidebarGroupLabel
+                asChild
+                className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
+              >
+                <CollapsibleTrigger className="flex w-full items-center">
+                  Today's Hadith
+                  <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+
+              <CollapsibleContent>
+                <SidebarGroupContent>
+                  <TodaysHadith />
                 </SidebarGroupContent>
               </CollapsibleContent>
             </SidebarGroup>
