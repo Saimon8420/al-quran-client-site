@@ -1,1 +1,0 @@
-// VITE_BE_BASE_URL=https://quran-api-backend-j06f.onrender.com/api/quran
