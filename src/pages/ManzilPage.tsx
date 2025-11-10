@@ -30,7 +30,7 @@ const ManzilPage = () => {
 
   useToast({ isError, error, isLoading, isFetching });
 
-  if (isLoading || (isFetching && !data)) {
+  if (isLoading || isFetching) {
     return <Loader />;
   }
 

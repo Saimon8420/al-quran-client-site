@@ -32,7 +32,7 @@ const SurahPage = () => {
 
   useToast({ isError, error, isLoading, isFetching });
 
-  if (isLoading || (isFetching && !surahData && !isError)) {
+  if (isLoading || isFetching) {
     return <Loader />;
   }
 

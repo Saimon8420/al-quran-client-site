@@ -32,7 +32,7 @@ const SajdaPage = () => {
 
   useToast({ isError, error, isLoading, isFetching });
 
-  if (isLoading || (isFetching && !data && !isError)) {
+  if (isLoading || isFetching) {
     return <Loader />;
   }
 

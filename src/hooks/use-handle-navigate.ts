@@ -4,7 +4,6 @@ const useHanldeNavigate = () => {
   const navigate = useNavigate();
 
   const handleNavigate = (surah?: number, path?: string, ayah?: number) => {
-    console.log(surah, path, ayah);
     if (!surah) return;
 
     if (path === "sajda" || path === "ruku") {

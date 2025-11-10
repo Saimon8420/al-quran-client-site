@@ -29,7 +29,7 @@ const PagesPage = () => {
 
   useToast({ isError, error, isFetching, isLoading });
 
-  if (isLoading || (isFetching && !data && !isError)) {
+  if (isLoading || isFetching) {
     return <Loader />;
   }
 

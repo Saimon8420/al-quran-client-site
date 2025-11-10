@@ -26,7 +26,7 @@ const HizbPage = () => {
 
   useToast({ isError, error, isSuccess, isLoading, isFetching });
 
-  if (isLoading || (isFetching && !data)) {
+  if (isLoading || isFetching) {
     return <Loader />;
   }
 
