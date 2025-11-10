@@ -26,6 +26,7 @@ import { useLocation, useNavigate } from 'react-router'
 
 import quran from '@/assets/images/quran_bg.png'
 import QuickLinks from './features/quick-links'
+import TodaysAyah from './features/todays-ayah'
 
 const navItems = [
   {
@@ -82,6 +83,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
 
+        {/* sidebar menu */}
         <div className={`${isVisibleHome ? 'block' : 'hidden'}`}>
           {navItems.map((item) => (
             <Collapsible
@@ -123,6 +125,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ))}
         </div>
 
+        {/* settings */}
         <div className={`${!isVisibleHome ? 'block' : 'hidden'}`}>
           <Collapsible className="group/collapsible" defaultOpen>
             <SidebarGroup>
@@ -145,6 +148,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </Collapsible>
         </div>
 
+        {/* quick links */}
         <div className={`${isVisibleHome ? 'block' : 'hidden'}`}>
           <Collapsible className="group/collapsible">
             <SidebarGroup>
@@ -161,6 +165,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <CollapsibleContent>
                 <SidebarGroupContent>
                   <QuickLinks />
+                </SidebarGroupContent>
+              </CollapsibleContent>
+            </SidebarGroup>
+          </Collapsible>
+        </div>
+
+        {/* ayah of the days */}
+        <div className={`${isVisibleHome ? 'block' : 'hidden'}`}>
+          <Collapsible className="group/collapsible" defaultOpen>
+            <SidebarGroup>
+              <SidebarGroupLabel
+                asChild
+                className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
+              >
+                <CollapsibleTrigger className="flex w-full items-center">
+                  Today's Ayah
+                  <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+
+              <CollapsibleContent>
+                <SidebarGroupContent>
+                  <TodaysAyah />
                 </SidebarGroupContent>
               </CollapsibleContent>
             </SidebarGroup>
