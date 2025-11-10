@@ -5,7 +5,7 @@
   
   <p>
     <a href="https://github.com/your-username/al-quran-client-site/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/your-username/al-quran-client-site?style=for-the-badge" alt="License">
+      <img src="https://img.shields.io/github/license/Saimon8420/al-quran-client-site?style=for-the-badge" alt="License">
     </a>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
     <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
@@ -28,11 +28,9 @@
 
 ## 🚀 Live Demo
 
-[Link to live demo]
+[Link to live demo](https://al-quran-client-site-e1g4.vercel.app/)
 
 ## 📸 Screenshots
-
-*(Add screenshots or GIFs of your application here to showcase its features and UI.)*
 
 <div align="center">
   <img src="placeholder.png" alt="Screenshot 1" width="45%">
@@ -65,18 +63,21 @@ To get a local copy up and running, follow these simple steps.
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/your-username/al-quran-client-site.git
    cd al-quran-client-site
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables:**
    Create a `.env` file in the root of the project and add any necessary environment variables. For example:
+
    ```
    VITE_API_BASE_URL=https://api.alquran.cloud/v1
    ```
@@ -90,9 +91,11 @@ To get a local copy up and running, follow these simple steps.
 ### Build for Production
 
 To create a production-ready build, run:
+
 ```bash
 npm run build
 ```
+
 This will create a `dist` folder with the optimized and minified files.
 
 ## 🤝 Contributing
