@@ -10,7 +10,6 @@ import {
   setUserSingleSelect,
   type EditionState,
 } from '@/components/redux/slices/editionSlice'
-import { Card } from '@/components/ui/card'
 
 interface SettingDefaultProps {
   isSingleSelect?: boolean

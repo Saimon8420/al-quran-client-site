@@ -33,9 +33,13 @@
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="placeholder.png" alt="Screenshot 1" width="45%">
+  <img src="src/assets/site/light.png" alt="Screenshot 1" width="100%">
   &nbsp;
-  <img src="placeholder.png" alt="Screenshot 2" width="45%">
+  <img src="src/assets/site/dark.png" alt="Screenshot 2" width="100%">
+  &nbsp;
+  <img src="src/assets/site/search.png" alt="Screenshot 1" width="100%">
+  &nbsp;
+  <img src="src/assets/site/surah.png" alt="Screenshot 2" width="100%">
 </div>
 
 ## 🛠️ Technologies Used

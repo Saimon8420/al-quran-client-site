@@ -117,7 +117,7 @@ const QuickLinks = () => {
       <CardContent>
         <div className="flex flex-col space-y-4">
           {quickLinks.map((link, index) => (
-            <div key={link.title}>
+            <div key={index}>
               <div
                 className="cursor-pointer hover:underline"
                 onClick={() => handleNavigate(link.path)}
