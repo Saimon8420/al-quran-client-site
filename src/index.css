@@ -75,6 +75,11 @@
   line-height: 2.5;
 }
 
+body {
+  font-family: monospace;
+  font-weight: 800;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

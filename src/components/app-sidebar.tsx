@@ -61,12 +61,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader className="border-b h-16">
-        <img
-          src={quran}
-          alt="quran"
-          className="w-10 h-10 my-auto cursor-pointer"
-          onClick={() => navigate("/")}
-        />
+        <div className="flex items-center gap-2">
+          <img
+            src={quran}
+            alt="quran"
+            className="w-10 h-10 my-auto cursor-pointer"
+            onClick={() => navigate("/")}
+          />
+          <p className="text-xl font-bold">Quran Majeed</p>
+        </div>
       </SidebarHeader>
       <SidebarContent className="gap-0">
         <SidebarMenu>
