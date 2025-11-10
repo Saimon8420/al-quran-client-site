@@ -4,7 +4,7 @@
   <p>A modern, responsive, and feature-rich web application for reading and exploring the Holy Quran.</p>
   
   <p>
-    <a href="https://github.com/your-username/al-quran-client-site/blob/main/LICENSE">
+    <a href="https://github.com/Saimon8420/al-quran-client-site/blob/main/LICENSE">
       <img src="https://img.shields.io/github/license/Saimon8420/al-quran-client-site?style=for-the-badge" alt="License">
     </a>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
