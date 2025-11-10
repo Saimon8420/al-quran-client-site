@@ -28,6 +28,7 @@ interface MetaState {
   rukus: EachSection;
   pages: EachSection;
   sajdas: EachSection;
+  searchOverView: EachSection;
   surahs: {
     count: number;
     references: Surah[];
@@ -49,6 +50,7 @@ const initialState: MetaState = {
   pages: { count: 0, references: [] },
   sajdas: { count: 0, references: [] },
   surahs: { count: 0, references: [] },
+  searchOverView: { count: 0, references: [] },
   ayahs: { count: 0 },
   currentTab: "surahs",
 };
@@ -66,9 +68,13 @@ export const metaSlice = createSlice({
     setCurrentTab: (state, action: PayloadAction<string>) => {
       state.currentTab = action.payload;
     },
+    setSearchOverView: (state, action) => {
+      state.searchOverView = action.payload;
+    },
   },
 });
 
-export const { setTabList, setMetaData, setCurrentTab } = metaSlice.actions;
+export const { setTabList, setMetaData, setCurrentTab, setSearchOverView } =
+  metaSlice.actions;
 
 export default metaSlice.reducer;

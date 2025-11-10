@@ -1,19 +1,20 @@
 import type { RootState } from "@/app/store";
-import RukuView from "@/components/features/ruku";
+import SearchOverViewComponent from "@/components/features/search-overview";
 import { useGetSpecificAyahQuery } from "@/components/redux/api/surahsApi";
 import CustomPaginate from "@/components/ui/custom-paginate/pagination-control";
 import Loader from "@/components/ui/loader/loader";
 import NoDataFound from "@/components/ui/nodata/no-data-found";
 import useToast from "@/hooks/use-toast";
-import { cleanedDataWithoutArrayResponse } from "@/lib/quranUtlis";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
-const RukuPage = () => {
+const SerachOverViewPage = () => {
   const { surah, ayah } = useParams();
 
   const editions = useSelector((state: RootState) => state?.edition.userSelect);
-  const rukus = useSelector((state: RootState) => state.meta.rukus);
+  const searchOverView = useSelector(
+    (state: RootState) => state.meta.searchOverView
+  );
 
   const isInvalidSurah = isNaN(Number(surah));
 
@@ -41,24 +42,16 @@ const RukuPage = () => {
     return <NoDataFound />;
   }
 
-  const response = { ...data };
-
-  response.text = cleanedDataWithoutArrayResponse(
-    data.text,
-    data.surah?.number,
-    data.numberInSurah
-  );
-
   return (
     <div className="md:p-4 p-0 flex flex-col justify-between">
-      <RukuView data={response} />
+      <SearchOverViewComponent data={data} />
 
       {/* Pagination */}
-      <div className="mt-30">
-        <CustomPaginate references={rukus.references} path="ruku" />
+      <div className="mt-10">
+        <CustomPaginate references={searchOverView.references} path="search" />
       </div>
     </div>
   );
 };
 
-export default RukuPage;
+export default SerachOverViewPage;

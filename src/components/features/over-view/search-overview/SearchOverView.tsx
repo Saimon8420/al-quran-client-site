@@ -8,11 +8,14 @@ import { quranBaseApi } from "@/components/redux/api/baseApi";
 import OverViewLayout from "../common/over-view-layout";
 import { useRef, useState } from "react";
 import useToast from "@/hooks/use-toast";
+import { useNavigate } from "react-router";
 
 const SearchOverView = () => {
   const [submittedTerm, setSubmittedTerm] = useState<string>("");
 
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -96,7 +99,13 @@ const SearchOverView = () => {
             data?.data &&
             data?.data?.count > 0 &&
             data?.data?.matches?.map((item: any, index) => (
-              <Card key={index}>
+              <Card
+                key={index}
+                className="cursor-pointer"
+                onClick={() =>
+                  navigate(`/search/${item.surah.number}/${item.numberInSurah}`)
+                }
+              >
                 <CardHeader>
                   <CardTitle>
                     {item.surah?.englishName} — {item.numberInSurah}
