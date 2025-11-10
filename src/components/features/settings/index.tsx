@@ -1,75 +1,76 @@
-import type { RootState } from "@/app/store";
-import { useGetEditionsDataQuery } from "@/components/redux/api/metaDataApi";
-import CustomSelect from "@/components/ui/custom-select/custom-select";
-import { useDispatch, useSelector } from "react-redux";
-import type { Editions } from "@/components/redux/api/metaDataApi";
-import { Spinner } from "@/components/ui/spinner";
-import useToast from "@/hooks/use-toast";
+import type { RootState } from '@/app/store'
+import { useGetEditionsDataQuery } from '@/components/redux/api/metaDataApi'
+import CustomSelect from '@/components/ui/custom-select/custom-select'
+import { useDispatch, useSelector } from 'react-redux'
+import type { Editions } from '@/components/redux/api/metaDataApi'
+import { Spinner } from '@/components/ui/spinner'
+import useToast from '@/hooks/use-toast'
 import {
   setUserSelect,
   setUserSingleSelect,
   type EditionState,
-} from "@/components/redux/slices/editionSlice";
+} from '@/components/redux/slices/editionSlice'
+import { Card } from '@/components/ui/card'
 
 interface SettingDefaultProps {
-  isSingleSelect?: boolean;
+  isSingleSelect?: boolean
 }
 
 const SettingDefault = ({ isSingleSelect }: SettingDefaultProps) => {
-  const { isLoading, isFetching, isError, error } = useGetEditionsDataQuery();
+  const { isLoading, isFetching, isError, error } = useGetEditionsDataQuery()
 
-  const editions = useSelector((state: RootState) => state?.edition);
+  const editions = useSelector((state: RootState) => state?.edition)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const renderArabicTextOption = (edition: Editions) => (
     <>
       {edition.englishName} | '{edition.language}'
     </>
-  );
+  )
 
   const renderAudioOption = (edition: Editions) => (
     <>
       {edition.englishName} | '{edition.language}'
     </>
-  );
+  )
 
   const renderTranslationOption = (edition: Editions) => (
     <>
       {edition.name} | '{edition.language}'
     </>
-  );
+  )
 
   // hooks for display toast
-  useToast({ isError, error });
+  useToast({ isError, error })
 
   // passing this function to custom select component to handle change
   // for surahs,sajdas,rukus
   const handleChange = (
     value: string,
-    type: keyof EditionState["userSelect"]
+    type: keyof EditionState['userSelect']
   ) => {
-    dispatch(setUserSelect({ value, type }));
-  };
+    dispatch(setUserSelect({ value, type }))
+  }
 
   // for pages,manzils,juzs,hizbs
   const handleSingleChange = (
     value: string,
-    type: keyof EditionState["userSingleSelect"]
+    type: keyof EditionState['userSingleSelect']
   ) => {
-    dispatch(setUserSingleSelect({ value, type }));
-  };
+    dispatch(setUserSingleSelect({ value, type }))
+  }
 
   if (isLoading || isFetching) {
     return (
       <div className="my-4 mx-auto flex items-center justify-center">
         <Spinner className="size-6" />
       </div>
-    );
+    )
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 border rounded-md mt-4">
       {isSingleSelect ? (
         <div className="flex flex-col gap-1">
           {/* for pages,manzils,juzs,hizbs */}
@@ -83,7 +84,7 @@ const SettingDefault = ({ isSingleSelect }: SettingDefaultProps) => {
               placeholder="Select arabic text"
               label="Arabic text"
               renderOption={renderArabicTextOption}
-              type={"text"}
+              type={'text'}
               defaultValue={editions.userSingleSelect.text}
               onChange={handleSingleChange}
             />
@@ -99,7 +100,7 @@ const SettingDefault = ({ isSingleSelect }: SettingDefaultProps) => {
               placeholder="Select arabic text"
               label="Arabic text"
               renderOption={renderArabicTextOption}
-              type={"arabicText"}
+              type={'arabicText'}
               defaultValue={editions.userSelect.arabicText}
               onChange={handleChange}
             />
@@ -111,7 +112,7 @@ const SettingDefault = ({ isSingleSelect }: SettingDefaultProps) => {
               placeholder="Select translation 1"
               label="Translation 1"
               renderOption={renderTranslationOption}
-              type={"translation1"}
+              type={'translation1'}
               defaultValue={editions.userSelect.translation1}
               onChange={handleChange}
             />
@@ -123,7 +124,7 @@ const SettingDefault = ({ isSingleSelect }: SettingDefaultProps) => {
               placeholder="Select translation 2"
               label="Translation 2"
               renderOption={renderTranslationOption}
-              type={"translation2"}
+              type={'translation2'}
               defaultValue={editions.userSelect.translation2}
               onChange={handleChange}
             />
@@ -135,7 +136,7 @@ const SettingDefault = ({ isSingleSelect }: SettingDefaultProps) => {
               placeholder="Select audio"
               label="Audio"
               renderOption={renderAudioOption}
-              type={"audio"}
+              type={'audio'}
               defaultValue={editions.userSelect.audio}
               onChange={handleChange}
             />
@@ -143,7 +144,7 @@ const SettingDefault = ({ isSingleSelect }: SettingDefaultProps) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SettingDefault;
+export default SettingDefault
